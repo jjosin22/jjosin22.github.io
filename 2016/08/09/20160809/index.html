@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="RACCommand作为RAC比较重要的yi">
+<meta name="description" content="RACCommand作为RAC比较重要的一个部分,其作用就是得到信号指令触发动作执行,一般涉及到UI交互操作.那在项目里我们要怎样巧妙的使用这个利器呢?">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RACCommand在项目中的实战运用和理解">
 <meta property="og:url" content="https://josin22.github.io/2016/08/09/20160809/index.html">
 <meta property="og:site_name" content="乔同X的博客">
-<meta property="og:description" content="RACCommand作为RAC比较重要的yi">
-<meta property="og:updated_time" content="2016-08-09T00:20:43.000Z">
+<meta property="og:description" content="RACCommand作为RAC比较重要的一个部分,其作用就是得到信号指令触发动作执行,一般涉及到UI交互操作.那在项目里我们要怎样巧妙的使用这个利器呢?">
+<meta property="og:image" content="https://josin22.github.io/images/posts/order.jpeg">
+<meta property="og:image" content="https://josin22.github.io/images/posts/pay.jpeg">
+<meta property="og:updated_time" content="2016-08-10T03:18:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RACCommand在项目中的实战运用和理解">
-<meta name="twitter:description" content="RACCommand作为RAC比较重要的yi">
+<meta name="twitter:description" content="RACCommand作为RAC比较重要的一个部分,其作用就是得到信号指令触发动作执行,一般涉及到UI交互操作.那在项目里我们要怎样巧妙的使用这个利器呢?">
+<meta name="twitter:image" content="https://josin22.github.io/images/posts/order.jpeg">
 
 
 
@@ -312,8 +315,117 @@
       
 
       
-        <p>RACCommand作为RAC比较重要的yi</p>
+        <p>RACCommand作为RAC比较重要的一个部分,其作用就是得到信号指令触发动作执行,一般涉及到UI交互操作.那在项目里我们要怎样巧妙的使用这个利器呢?</p>
 <a id="more"></a>
+<p> RACCommand的你需要了解的</p>
+<h2 id="两种创建方式"><a href="#两种创建方式" class="headerlink" title="两种创建方式"></a>两种创建方式</h2><pre><code>#1
+_orderCreatCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+
+    return [RACSignal createSignal:^RACDisposable *(id&lt;RACSubscriber&gt; subscriber) {
+
+
+        return nil;
+    }];
+}];
+
+#2    
+RACSignal *isEnableSignal = [RACSignal createSignal:^RACDisposable *(id&lt;RACSubscriber&gt; subscriber) {
+    return nil;
+}];
+_orderCreatCommand = [[RACCommand alloc] initWithEnabled:isEnableSignal signalBlock:^RACSignal *(id input) {
+
+    return [RACSignal createSignal:^RACDisposable *(id&lt;RACSubscriber&gt; subscriber) {
+
+
+        return nil;
+    }];
+}];
+</code></pre><h2 id="属性和方法的解析"><a href="#属性和方法的解析" class="headerlink" title="属性和方法的解析"></a>属性和方法的解析</h2><h3 id="调用执行成功返回信号的信号-主线程执行"><a href="#调用执行成功返回信号的信号-主线程执行" class="headerlink" title="调用执行成功返回信号的信号,主线程执行"></a>调用执行成功返回信号的信号,主线程执行</h3><pre><code>@property (nonatomic, strong, readonly) RACSignal *executionSignals;
+</code></pre><h3 id="调用执行当前信号是否正在执行返回-NO-主线程执行"><a href="#调用执行当前信号是否正在执行返回-NO-主线程执行" class="headerlink" title="调用执行当前信号是否正在执行返回@(NO),主线程执行"></a>调用执行当前信号是否正在执行返回@(NO),主线程执行</h3><pre><code>@property (nonatomic, strong, readonly) RACSignal *executing;
+</code></pre><h3 id="默认情况下返回-NO信号-但只有一下两种情况会返回-YES-1-上面第二种创建RACCommand的时候就给isEnableSignal赋值为-YES的时候-2-allowsConcurrentExecution属性设置为-NO并且这个信号正在执行中-主线程执行"><a href="#默认情况下返回-NO信号-但只有一下两种情况会返回-YES-1-上面第二种创建RACCommand的时候就给isEnableSignal赋值为-YES的时候-2-allowsConcurrentExecution属性设置为-NO并且这个信号正在执行中-主线程执行" class="headerlink" title="默认情况下返回@NO信号,但只有一下两种情况会返回@YES 1.上面第二种创建RACCommand的时候就给isEnableSignal赋值为@YES的时候 2.allowsConcurrentExecution属性设置为 NO并且这个信号正在执行中. 主线程执行"></a>默认情况下返回@NO信号,但只有一下两种情况会返回@YES 1.上面第二种创建RACCommand的时候就给isEnableSignal赋值为@YES的时候 2.allowsConcurrentExecution属性设置为 NO并且这个信号正在执行中. 主线程执行</h3><pre><code>@property (nonatomic, strong, readonly) RACSignal *enabled;
+</code></pre><h3 id="是否允许多个RACCommand同时执行。"><a href="#是否允许多个RACCommand同时执行。" class="headerlink" title="是否允许多个RACCommand同时执行。"></a>是否允许多个RACCommand同时执行。</h3><pre><code>@property (atomic, assign) BOOL allowsConcurrentExecution;
+</code></pre><h3 id="执行RACCommand的时候发送获取的error信号"><a href="#执行RACCommand的时候发送获取的error信号" class="headerlink" title="执行RACCommand的时候发送获取的error信号"></a>执行RACCommand的时候发送获取的error信号</h3><pre><code>@property (nonatomic, strong, readonly) RACSignal *errors;
+</code></pre><h3 id="调用RACCommand，input为executionSignals的订阅者发送的值"><a href="#调用RACCommand，input为executionSignals的订阅者发送的值" class="headerlink" title="调用RACCommand，input为executionSignals的订阅者发送的值"></a>调用RACCommand，input为executionSignals的订阅者发送的值</h3><pre><code>- (RACSignal *)execute:(id)input;
+</code></pre><h2 id="开始着手项目实战"><a href="#开始着手项目实战" class="headerlink" title="开始着手项目实战"></a>开始着手项目实战</h2><h3 id="项目功能需求讲解一"><a href="#项目功能需求讲解一" class="headerlink" title="项目功能需求讲解一:"></a>项目功能需求讲解一:</h3><p>某订单确认页面<br><img src="/images/posts/order.jpeg" alt="images"><br>点击提交订单按钮</p>
+<h4 id="在VC中代码"><a href="#在VC中代码" class="headerlink" title="在VC中代码:"></a>在VC中代码:</h4><p>这里订阅从ViewModel返回的最终信号</p>
+<pre><code>//点击提交订单
+[[self.commitOrderButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+    STRONG
+    [[self.confirmOrderViewModel.orderCreatCommand execute:finalParames]
+     subscribeNext:^(NSDictionary *x) {
+
+        self.commitOrderButton.enabled = YES;
+        if ([self.confirmOrderViewModel.payWay isEqualToString:pay_downLine]{
+            //货到付款处理...    
+        } else {
+            //在线支付处理...            
+        }
+    } error:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@&quot;网络错误~&quot;];
+    }];
+
+}];
+</code></pre><h4 id="在ViewModel中代码"><a href="#在ViewModel中代码" class="headerlink" title="在ViewModel中代码:"></a>在ViewModel中代码:</h4><p>创建command,在input获取从VC中调用的execute传来的参数,返回一个信号.信号包裹着提交订单网络请求的数据返回给下一个订阅着.</p>
+<pre><code>- (RACCommand *)orderCreatCommand{
+
+    _orderCreatCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSMutableDictionary *params) {
+
+        return [RACSignal createSignal:^RACDisposable *(id&lt;RACSubscriber&gt; subscriber) {
+            [SVProgressHUD showWithStatus:@&quot;提交订单...&quot;];
+            [XNBaseRequest HTTPPostWithUrl:URL_SX(XNRequestOrderCreat)
+                                   Parames:parames
+                                 commplete:^(id result) {
+
+                                         [subscriber sendNext:payDict];
+                                     });
+                                 }
+                                   failure:^(NSError *error) {
+                                       [subscriber sendError:error];
+                                   }];
+
+            return nil;
+        }];
+
+    }];
+
+    return _orderCreatCommand;
+}
+</code></pre><h3 id="项目功能需求讲解二"><a href="#项目功能需求讲解二" class="headerlink" title="项目功能需求讲解二:"></a>项目功能需求讲解二:</h3><p>某订单支付页面<br><img src="/images/posts/pay.jpeg" alt="images"><br>点击确认支付按钮</p>
+<h4 id="同样获取按钮点击事件做你想做的事"><a href="#同样获取按钮点击事件做你想做的事" class="headerlink" title="同样获取按钮点击事件做你想做的事"></a>同样获取按钮点击事件做你想做的事</h4><pre><code> [[self.CheckStandViewModel.payCommand execute:@&quot;1&quot;] subscribeNext:^(NSNumber      *isSuccess) {
+                                                                                 self.CheckStandViewModel.isOrderSuccess = isSuccess.boolValue;
+} error:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@&quot;网络错误~&quot;];
+    }];
+</code></pre><h4 id="同样在ViewModel里创建Command"><a href="#同样在ViewModel里创建Command" class="headerlink" title="同样在ViewModel里创建Command"></a>同样在ViewModel里创建Command</h4><p>… 你可以做你想自己的数据处理,在这我都不展示了</p>
+<pre><code>   - (RACCommand *)payCommand{
+    WEAK
+    _payCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString  *payType) {
+
+        return [RACSignal createSignal:^RACDisposable *(id&lt;RACSubscriber&gt; subscriber) {
+        STRONG
+            [SVProgressHUD showWithStatus:@&quot;前往支付...&quot;];
+             ...
+            [XNBaseRequest HTTPPostWithUrl:url
+                                      Parames:parames
+                                    commplete:^(id result) {
+
+                                        ... 
+                            [subscriber sendNext:@(NO)];
+                            [subscriber sendCompleted];
+                                                                                                                       failure:^(NSError *error) {
+
+                                        [subscriber sendError:error];
+
+                                      }];
+
+            return nil;
+        }];
+    }];
+
+    return _payCommand;
+}
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在RAC中万物皆信号,所以你需要更多的去理解信号作为一种流的方式存在.还有更多RACCommand方法等待你的发现,至于如何更好的利用这个利器,相信你也有几分的了解了,接下来的就需要自己不断的摸索更多神奇而又强大的方法了.</p>
+
       
     </div>
 
@@ -523,7 +635,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种创建方式"><span class="nav-number">1.</span> <span class="nav-text">两种创建方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性和方法的解析"><span class="nav-number">2.</span> <span class="nav-text">属性和方法的解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用执行成功返回信号的信号-主线程执行"><span class="nav-number">2.1.</span> <span class="nav-text">调用执行成功返回信号的信号,主线程执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用执行当前信号是否正在执行返回-NO-主线程执行"><span class="nav-number">2.2.</span> <span class="nav-text">调用执行当前信号是否正在执行返回@(NO),主线程执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认情况下返回-NO信号-但只有一下两种情况会返回-YES-1-上面第二种创建RACCommand的时候就给isEnableSignal赋值为-YES的时候-2-allowsConcurrentExecution属性设置为-NO并且这个信号正在执行中-主线程执行"><span class="nav-number">2.3.</span> <span class="nav-text">默认情况下返回@NO信号,但只有一下两种情况会返回@YES 1.上面第二种创建RACCommand的时候就给isEnableSignal赋值为@YES的时候 2.allowsConcurrentExecution属性设置为 NO并且这个信号正在执行中. 主线程执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是否允许多个RACCommand同时执行。"><span class="nav-number">2.4.</span> <span class="nav-text">是否允许多个RACCommand同时执行。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行RACCommand的时候发送获取的error信号"><span class="nav-number">2.5.</span> <span class="nav-text">执行RACCommand的时候发送获取的error信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用RACCommand，input为executionSignals的订阅者发送的值"><span class="nav-number">2.6.</span> <span class="nav-text">调用RACCommand，input为executionSignals的订阅者发送的值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始着手项目实战"><span class="nav-number">3.</span> <span class="nav-text">开始着手项目实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目功能需求讲解一"><span class="nav-number">3.1.</span> <span class="nav-text">项目功能需求讲解一:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在VC中代码"><span class="nav-number">3.1.1.</span> <span class="nav-text">在VC中代码:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在ViewModel中代码"><span class="nav-number">3.1.2.</span> <span class="nav-text">在ViewModel中代码:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目功能需求讲解二"><span class="nav-number">3.2.</span> <span class="nav-text">项目功能需求讲解二:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同样获取按钮点击事件做你想做的事"><span class="nav-number">3.2.1.</span> <span class="nav-text">同样获取按钮点击事件做你想做的事</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同样在ViewModel里创建Command"><span class="nav-number">3.2.2.</span> <span class="nav-text">同样在ViewModel里创建Command</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
         </section>
