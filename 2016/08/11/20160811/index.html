@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="Do What I Can Do!">
+<meta name="description" content="做了大些的年的视图,你有没有真正的搭建过个正牌的UI,有没有想过如何UI进阶,有没有想过像京东,淘宝等知名APP版的UI是怎么搭建的呢?接下来我们就要开始解密他们的面纱~">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何利用Reveal神器窥探各大APP视图层级">
+<meta property="og:title" content="如何利用Reveal神器查看各大APP UI搭建层级">
 <meta property="og:url" content="http://qiaotongxin.cc/2016/08/11/20160811/index.html">
 <meta property="og:site_name" content="乔同X的博客">
-<meta property="og:description" content="Do What I Can Do!">
-<meta property="og:updated_time" content="2016-08-11T01:35:03.000Z">
+<meta property="og:description" content="做了大些的年的视图,你有没有真正的搭建过个正牌的UI,有没有想过如何UI进阶,有没有想过像京东,淘宝等知名APP版的UI是怎么搭建的呢?接下来我们就要开始解密他们的面纱~">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/reveal.png">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/upload.png">
+<meta property="og:updated_time" content="2016-08-11T08:25:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何利用Reveal神器窥探各大APP视图层级">
-<meta name="twitter:description" content="Do What I Can Do!">
+<meta name="twitter:title" content="如何利用Reveal神器查看各大APP UI搭建层级">
+<meta name="twitter:description" content="做了大些的年的视图,你有没有真正的搭建过个正牌的UI,有没有想过如何UI进阶,有没有想过像京东,淘宝等知名APP版的UI是怎么搭建的呢?接下来我们就要开始解密他们的面纱~">
+<meta name="twitter:image" content="http://qiaotongxin.cc/images/posts/reveal.png">
 
 
 
@@ -116,7 +119,7 @@
 
   <link rel="canonical" href="http://qiaotongxin.cc/2016/08/11/20160811/"/>
 
-  <title> 如何利用Reveal神器窥探各大APP视图层级 | 乔同X的博客 </title>
+  <title> 如何利用Reveal神器查看各大APP UI搭建层级 | 乔同X的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -246,7 +249,7 @@
             
             
               
-                如何利用Reveal神器窥探各大APP视图层级
+                如何利用Reveal神器查看各大APP UI搭建层级
               
             
           </h1>
@@ -263,6 +266,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/破解/" itemprop="url" rel="index">
+                    <span itemprop="name">破解</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -293,7 +315,36 @@
       
 
       
-        
+        <p>做了大些的年的视图,你有没有真正的搭建过个正牌的UI,有没有想过如何UI进阶,有没有想过像京东,淘宝等知名APP版的UI是怎么搭建的呢?接下来我们就要开始解密他们的面纱~</p>
+<a id="more"></a>
+<h1 id="前期工具准备"><a href="#前期工具准备" class="headerlink" title="前期工具准备"></a>前期工具准备</h1><h2 id="pp助手-Mac版"><a href="#pp助手-Mac版" class="headerlink" title="pp助手 Mac版"></a>pp助手 Mac版</h2><p><a href="http://pro.25pp.com/" target="_blank" rel="external">PP助手</a></p>
+<h2 id="破解版的Reveal"><a href="#破解版的Reveal" class="headerlink" title="破解版的Reveal"></a>破解版的Reveal</h2><p><a href="http://obh6cwxkc.bkt.clouddn.com/Reveal.zip" target="_blank" rel="external">破解版1.5Reveal</a>直接解压拖到应用程序打开</p>
+<p><img src="/images/posts/reveal.png" alt="images"></p>
+<p>得到libReveal.dylib,且存好备用</p>
+<h2 id="已越狱的iPhone手机"><a href="#已越狱的iPhone手机" class="headerlink" title="已越狱的iPhone手机"></a>已越狱的iPhone手机</h2><p>怎么越狱,<a href="http://www.pangu.io/" target="_blank" rel="external">盘古越狱</a>已经说得很详细了.</p>
+<h3 id="越狱手机需要安装的插件"><a href="#越狱手机需要安装的插件" class="headerlink" title="越狱手机需要安装的插件"></a>越狱手机需要安装的插件</h3><p>献上几个软件源:</p>
+<pre><code>http://apt.thebigboss.org/repofiles/cydia/
+http://apt.saurik.com/
+http://repo.hackyouriphone.org/
+http://apt.modmyi.com/
+http://wf.25pp.com/ppzhushou/
+http://apt.25pp.com/
+http://cydia.zodttd.com/repo/cydia/
+http://apt.Feng.com/
+</code></pre><p>你需要安装几个必要插件:</p>
+<pre><code>afc2add    #iOS7越狱后PC连接补丁
+OpenSSH    #一个保证用户加密远程登录到系统的协议的连接传输工具
+CydiaSubstrate  #动态替换内存中的代码、数据等的一个库
+AppSync    #允许安装破解软件的补丁
+Apple File Conduit   #iOS9越狱后无法访问系统文件补丁
+</code></pre><p>这时候打开pp助手 ,导入你备用的libReveal.dylib<br><img src="/images/posts/upload.png" alt="images">    </p>
+<p>如果你到了这一步,就说明你离成功不远了~</p>
+<p>接下来就是需要一个<a href="http://obh6cwxkc.bkt.clouddn.com/libReveal.plist" target="_blank" rel="external">libReveal.plist</a>,包含各大APP的boudle id.如果你还不满足,那你可以严格按照里边的格式,新增一些APP的boudle id.</p>
+<p>关于怎么查看别人家APP的boudle id,,作为一个iOS developer 你 should know it 的. </p>
+<p>(but,在Cydia里有一个插件Reveal Loader,免boudle id 直接暴力查看各种APP.对,也就是说,你可以把他安装了.)</p>
+<p>然后同样的再用PP助手上面的一样的路径在把这个plist文件上传 ,完了之后重启你的iPhone 就ok了.</p>
+<p>重启之后确保和电脑在同一局域网,这是你会惊喜发现</p>
+
       
     </div>
 
@@ -372,7 +423,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/08/11/20160811/"
-           data-title="如何利用Reveal神器窥探各大APP视图层级" data-url="http://qiaotongxin.cc/2016/08/11/20160811/">
+           data-title="如何利用Reveal神器查看各大APP UI搭建层级" data-url="http://qiaotongxin.cc/2016/08/11/20160811/">
       </div>
     
   </div>
@@ -425,7 +476,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -497,7 +548,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前期工具准备"><span class="nav-number">1.</span> <span class="nav-text">前期工具准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pp助手-Mac版"><span class="nav-number">1.1.</span> <span class="nav-text">pp助手 Mac版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#破解版的Reveal"><span class="nav-number">1.2.</span> <span class="nav-text">破解版的Reveal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#已越狱的iPhone手机"><span class="nav-number">1.3.</span> <span class="nav-text">已越狱的iPhone手机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#越狱手机需要安装的插件"><span class="nav-number">1.3.1.</span> <span class="nav-text">越狱手机需要安装的插件</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
