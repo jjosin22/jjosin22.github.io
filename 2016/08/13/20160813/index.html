@@ -93,7 +93,13 @@
 <meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium.png">
 <meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_1.png">
 <meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_2.png">
-<meta property="og:updated_time" content="2016-08-16T09:31:34.000Z">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_3.png">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_spect.png">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_text.png">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_local.png">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_misc.png">
+<meta property="og:image" content="http://qiaotongxin.cc/images/posts/appium_code.png">
+<meta property="og:updated_time" content="2016-08-17T02:27:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="玩转Appium自动化测试">
 <meta name="twitter:description" content="前一段时间,项目里加入了自动化测试.隧在我司各大ruby大神的结伴下,共同完成这个”鬼测试”.">
@@ -323,7 +329,7 @@
 <h2 id="Appium环境搭建"><a href="#Appium环境搭建" class="headerlink" title="Appium环境搭建"></a>Appium环境搭建</h2><p>先把一下环境装好备用</p>
 <ul>
 <li>Java    </li>
-<li>Command Line Tools  (<a href="http://obh6cwxkc.bkt.clouddn.com/Command_Line_Tools_OS_X_10.11_for_Xcode_7.3.1.dmg" target="_blank" rel="external">http://obh6cwxkc.bkt.clouddn.com/Command_Line_Tools_OS_X_10.11_for_Xcode_7.3.1.dmg</a>)</li>
+<li>Command_Line_Tools  (<a href="http://obh6cwxkc.bkt.clouddn.com/Command_Line_Tools_OS_X_10.11_for_Xcode_7.3.1.dmg" target="_blank" rel="external">http://obh6cwxkc.bkt.clouddn.com/Command_Line_Tools_OS_X_10.11_for_Xcode_7.3.1.dmg</a>)</li>
 <li>ruby (<a href="https://ruby-china.org/" target="_blank" rel="external">https://ruby-china.org/</a>)</li>
 <li>brew (<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">http://brew.sh/index_zh-cn.html</a>)</li>
 <li>node (<a href="https://nodejs.org/en/download/" target="_blank" rel="external">https://nodejs.org/en/download/</a>)    </li>
@@ -339,7 +345,32 @@
 <li>spec 文件包含所有模块的测试rb文件</li>
 </ul>
 <p><img src="/images/posts/appium_2.png" alt="images"></p>
-<h2 id="模拟器运行项目"><a href="#模拟器运行项目" class="headerlink" title="模拟器运行项目"></a>模拟器运行项目</h2>
+<h2 id="模拟器运行项目"><a href="#模拟器运行项目" class="headerlink" title="模拟器运行项目"></a>模拟器运行项目</h2><h3 id="配置appium"><a href="#配置appium" class="headerlink" title="配置appium"></a>配置appium</h3><ul>
+<li>APP路径要对</li>
+<li>设备模拟器和版本匹配要对</li>
+<li>红框内必选(boudleID也可以不写)</li>
+</ul>
+<p><img src="/images/posts/appium_3.png" alt="images"></p>
+<h3 id="配置完点击-gt-问号-inspector-弹出inspector-视图元素检查页面"><a href="#配置完点击-gt-问号-inspector-弹出inspector-视图元素检查页面" class="headerlink" title="配置完点击=&gt; 问号(inspector) 弹出inspector 视图元素检查页面"></a>配置完点击=&gt; 问号(inspector) 弹出inspector 视图元素检查页面</h3><p><img src="/images/posts/appium_spect.png" alt="images"><br><img src="/images/posts/appium_text.png" alt="images"><br><img src="/images/posts/appium_local.png" alt="images"><br><img src="/images/posts/appium_misc.png" alt="images"></p>
+<p>点击完Record<br><img src="/images/posts/appium_code.png" alt="images"></p>
+<p>对于如何编写测试代码,两种方式,一种你可以直接在页面区操作页面,同时在代码区生成测试代码(此代码是利用xpath遍历定位元素,效率不高).另一种是用appium提供的定位元素方法编写测试代码(<a href="http://www.rubydoc.info/gems/appium_lib/Appium/Ios" target="_blank" rel="external">这里是appium的所有方法</a>)</p>
+<h3 id="如果弹-不出此页面-你可以尝试"><a href="#如果弹-不出此页面-你可以尝试" class="headerlink" title="如果弹 不出此页面,你可以尝试"></a>如果弹 不出此页面,你可以尝试</h3><ul>
+<li>更换server address : 127.0.0.1</li>
+<li>检查打包的.app文件是否为开发证书编译</li>
+<li>检查当前xcode的模拟器和当前选择的设备是否一致</li>
+<li>如果还不行,请尝试更换.app</li>
+</ul>
+<h3 id="rb怎么写"><a href="#rb怎么写" class="headerlink" title=".rb怎么写?"></a>.rb怎么写?</h3><p>可能有些小白读到这里还是不知道该如何下手,这里我已经基本的框架搭建完成,供大家小试.<br><a href="http://obh6cwxkc.bkt.clouddn.com/appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95.zip" target="_blank" rel="external">appium demo</a></p>
+<p>启动appium 测试</p>
+<ul>
+<li>要 开启服务</li>
+<li>要 rspec 执行命令</li>
+<li>然后模拟器就会自动开启执行你rspec里所有的.rb文件</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这里面的坑,还有很多.多去testhome里看看,appium提供的方法很多,这是一个要花费很多时间去尝试的经历.重要的元素定位方法,测试用例的编写,ruby语言的了解,如果以上都完成了,那你就可以去了解如何用Jenkins部署项目自动化测试了~~</p>
+<h1 id="资源链接"><a href="#资源链接" class="headerlink" title="资源链接"></a>资源链接</h1><p><a href="https://testerhome.com/" target="_blank" rel="external">testhome</a></p>
+<p>细心找找testhome里的资源,总会有你想要的.</p>
+
       
     </div>
 
@@ -547,7 +578,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开读之前你需要知道的"><span class="nav-number">1.</span> <span class="nav-text">开读之前你需要知道的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Appium是个什么鬼"><span class="nav-number">1.1.</span> <span class="nav-text">Appium是个什么鬼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appium环境搭建"><span class="nav-number">1.2.</span> <span class="nav-text">Appium环境搭建</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开战实际项目开发"><span class="nav-number">2.</span> <span class="nav-text">开战实际项目开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动化测试项目搭建"><span class="nav-number">2.1.</span> <span class="nav-text">自动化测试项目搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟器运行项目"><span class="nav-number">2.2.</span> <span class="nav-text">模拟器运行项目</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开读之前你需要知道的"><span class="nav-number">1.</span> <span class="nav-text">开读之前你需要知道的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Appium是个什么鬼"><span class="nav-number">1.1.</span> <span class="nav-text">Appium是个什么鬼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appium环境搭建"><span class="nav-number">1.2.</span> <span class="nav-text">Appium环境搭建</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开战实际项目开发"><span class="nav-number">2.</span> <span class="nav-text">开战实际项目开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动化测试项目搭建"><span class="nav-number">2.1.</span> <span class="nav-text">自动化测试项目搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟器运行项目"><span class="nav-number">2.2.</span> <span class="nav-text">模拟器运行项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置appium"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置appium</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置完点击-gt-问号-inspector-弹出inspector-视图元素检查页面"><span class="nav-number">2.2.2.</span> <span class="nav-text">配置完点击=> 问号(inspector) 弹出inspector 视图元素检查页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果弹-不出此页面-你可以尝试"><span class="nav-number">2.2.3.</span> <span class="nav-text">如果弹 不出此页面,你可以尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rb怎么写"><span class="nav-number">2.2.4.</span> <span class="nav-text">.rb怎么写?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资源链接"><span class="nav-number">4.</span> <span class="nav-text">资源链接</span></a></li></ol></div>
             
           </div>
         </section>
