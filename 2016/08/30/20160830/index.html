@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download5.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download_all.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download_animation.gif">
-<meta property="og:updated_time" content="2016-08-31T00:21:32.000Z">
+<meta property="og:updated_time" content="2016-09-13T02:56:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="就2小时教会你抽丝剥茧CAAnimation核心动画之精美的下载动画">
 <meta name="twitter:description" content="闲来无事,狂进了materialup网站,不经意间瞅见一个下载的小动画,觉得很是有趣.于是,我就它给实现一下~">
@@ -328,7 +328,9 @@
 </blockquote>
 <a id="more"></a>
 <p><a href="http://qiaotongxin.cc"><img src="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download_icon.png" alt="header"></a></p>
-<h1 id="设计灵感"><a href="#设计灵感" class="headerlink" title="设计灵感"></a>设计灵感</h1><p>设计此效果的作者 <a href="https://material.uplabs.com/nickbuturisvili" target="_blank" rel="external">Nick</a>;<br><img src="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download.gif" alt="images"></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>支持pod 安装</p>
+<pre><code>pod &apos;JSDownloadView&apos;
+</code></pre><h1 id="设计灵感"><a href="#设计灵感" class="headerlink" title="设计灵感"></a>设计灵感</h1><p>设计此效果的作者 <a href="https://material.uplabs.com/nickbuturisvili" target="_blank" rel="external">Nick</a>;<br><img src="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download.gif" alt="images"></p>
 <h1 id="开始之前你需要了解的"><a href="#开始之前你需要了解的" class="headerlink" title="开始之前你需要了解的"></a>开始之前你需要了解的</h1><p>先上一张CAAnimation层次图:<br><img src="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/caanimation.png" alt="images"></p>
 <p>图上只是一些类的常用属性,后边更多代码会讲到.</p>
 <h1 id="怎样分解动画"><a href="#怎样分解动画" class="headerlink" title="怎样分解动画"></a>怎样分解动画</h1><p>关于分解gif,其实用mac 预览 开发gif文件,就可以看到所有帧的图片.<br><img src="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/fenjie_download.png" alt="images"></p>
@@ -337,7 +339,11 @@
 <h1 id="怎样连贯动画"><a href="#怎样连贯动画" class="headerlink" title="怎样连贯动画"></a>怎样连贯动画</h1><p>连贯动画是展示你做的效果流畅不流畅,看着舒服不舒服的能力.其实我是也是尝试很多遍,让很多人看了这个效果,有说别扭的咱就改,咋顺咋来.所以让动画连贯起来尤为重要.</p>
 <p>第一,就是要动画节点要选准确,定位好动画与动画的衔接处.<br>第二,让动画结束时,恢复自然状态,而不是默认状态.尽量不要有太大的差异和不规整的地方<br>第三,使用组合动画,掐好时间节点.</p>
 <p>简单的就说就说这么多,下面我们开始演练代码<del>~</del>~</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="基本实现想法"><a href="#基本实现想法" class="headerlink" title="基本实现想法"></a>基本实现想法</h2><p>1.自定义UIControl类,因为它本身就是UIView子类,做点击事件的View再好不过.(另一种方式用block点击回调)<br>2.点击区域是否在圆内判断<br>3.两个CAShapeLayer圆环+(一个CAShapeLayer箭头和CAShapeLayer竖线)组合成箭头+label<br>4.一个service类管理创建所用到的path和animation</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="基本实现想法"><a href="#基本实现想法" class="headerlink" title="基本实现想法"></a>基本实现想法</h2><p><del>1.自定义UIControl类,因为它本身就是UIView子类,做点击事件的View再好不过.(另一种方式用block点击回调)</del></p>
+<p>1.使用代理,继承UIView.</p>
+<p>2.点击区域是否在圆内判断</p>
+<p>3.两个CAShapeLayer圆环+(一个CAShapeLayer箭头和CAShapeLayer竖线)组合成箭头+label</p>
+<p>4.一个service类管理创建所用到的path和animation</p>
 <h2 id="service-类"><a href="#service-类" class="headerlink" title="service 类"></a>service 类</h2><h3 id="service属性"><a href="#service属性" class="headerlink" title="service属性"></a>service属性</h3><pre><code>@property (nonatomic , assign) CGRect viewRect;
 
 @property (nonatomic, strong) UIBezierPath *progressPath;
@@ -448,39 +454,75 @@ static const  NSInteger  kSpacing = 2;
  */
 @property (nonatomic, assign) CGFloat progressWidth;
 /**
- *  停止动画
+ *  是否下载成功
  */
-- (void)stopAllAnimations;
+@property (nonatomic, assign) BOOL isSuccess;
 /**
- *  block 形式点击回调
+ *  委托代理
  */
-//@property (nonatomic, strong) void (^ didClickBlock)();
+@property (nonatomic, weak) id&lt;JSDownloadAnimationDelegate&gt; delegate;
 </code></pre><h3 id="所有方法预览"><a href="#所有方法预览" class="headerlink" title="所有方法预览"></a>所有方法预览</h3><p><img src="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download_all.png" alt="images"></p>
-<p>方法比较多,在这不一一展示了,有感兴趣的童鞋可以直接去<a href="https://github.com/Josin22/JSDownloadView" target="_blank" rel="external">github下载</a>,记得点个星星哦~~~😜</p>
-<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><p>添加事件</p>
-<pre><code>[downloadView addTarget:self action:@selector(updateProgress) forControlEvents:UIControlEventTouchUpInside];
-</code></pre><p>或者block回调</p>
-<pre><code>//        downloadView.didClickBlock = ^{
-//            
-//            _timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
-//        };
-</code></pre><p>这里模拟网络请求数据</p>
-<pre><code>// 模拟网络请求数据进度
-- (void)timeDown{
-    _timeCount -= 1;
-    _progress += 0.005;
-    self.downloadView.progress  = _progress;
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><pre><code>@protocol JSDownloadAnimationDelegate &lt;NSObject&gt;
 
-    if (_timeCount &lt;= 0) {
+@required
+- (void)animationStart;
 
-        [self initData];
-        [_timer invalidate];
-        _timer = nil;
-    }
+@optional
+- (void)animationSuspend;
+
+- (void)animationEnd;
+
+@end
+</code></pre><p>方法比较多,在这不一一展示了,有感兴趣的童鞋可以直接去<a href="https://github.com/Josin22/JSDownloadView" target="_blank" rel="external">github下载</a>,记得点个星星哦~~~😜</p>
+<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><p>使用全真网络下载</p>
+<pre><code>- (void)downTask{
+
+    //1M
+//    NSString*url = @&quot;http://obh6cwxkc.bkt.clouddn.com/146621166967.jpg&quot;;
+    //26M
+    NSString*url = @&quot;http://obh6cwxkc.bkt.clouddn.com/iStat%20Menus.app.zip&quot;;
+    //文件比较大  200M
+//    NSString*url = @&quot;http://obh6cwxkc.bkt.clouddn.com/Command_Line_Tools_OS_X_10.11_for_Xcode_7.3.1.dmg&quot;;
+
+    [self.manager downloadWithURL:url
+                         progress:^(NSProgress *downloadProgress) {
+
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 NSString *progressString  = [NSString stringWithFormat:@&quot;%.2f&quot;,1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount];
+                                 self.downloadView.progress = progressString.floatValue;
+                             });
+
+                         }
+                             path:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                                 //
+                                 NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+                                 NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
+                                 return [NSURL fileURLWithPath:path];
+                             }
+                       completion:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                           //此时已在主线程
+                           self.downloadView.isSuccess = YES;
+                           NSString *path = [filePath path];
+                           NSLog(@&quot;************文件路径:%@&quot;,path);
+                       }];
 }
 </code></pre><h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p>现实与理想还是有些差距,希望不是很大,在此分享一下自己研究的经验,有任何问题都可以Issues我,</p>
 <p><img src="https://raw.githubusercontent.com/Josin22/JSDownloadView/master/JSDownloadViewDemo/Source/download_animation.gif" alt="images"></p>
-<p># </p>
+<h1 id="Release-notes"><a href="#Release-notes" class="headerlink" title="Release notes"></a>Release notes</h1><p>Version 1.1.0</p>
+<ul>
+<li>使用代理委托,取消继承uicontro,利用代理观察事件触发</li>
+<li>优化动画,抽离波浪动画,单独利用定时器动画.</li>
+<li>真实模拟网络数据下载</li>
+</ul>
+<p>Version 1.0</p>
+<ul>
+<li>1.0版下载动画</li>
+</ul>
+<h1 id="MIT-License"><a href="#MIT-License" class="headerlink" title="MIT License"></a>MIT License</h1><p>MIT License</p>
+<p>Copyright (c) 2016 乔同X</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files (the “Software”), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.</p>
 
       
     </div>
@@ -693,7 +735,7 @@ static const  NSInteger  kSpacing = 2;
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计灵感"><span class="nav-number">1.</span> <span class="nav-text">设计灵感</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始之前你需要了解的"><span class="nav-number">2.</span> <span class="nav-text">开始之前你需要了解的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎样分解动画"><span class="nav-number">3.</span> <span class="nav-text">怎样分解动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎样连贯动画"><span class="nav-number">4.</span> <span class="nav-text">怎样连贯动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">5.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本实现想法"><span class="nav-number">5.1.</span> <span class="nav-text">基本实现想法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#service-类"><span class="nav-number">5.2.</span> <span class="nav-text">service 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#service属性"><span class="nav-number">5.2.1.</span> <span class="nav-text">service属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service方法"><span class="nav-number">5.2.2.</span> <span class="nav-text">service方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service-key"><span class="nav-number">5.2.3.</span> <span class="nav-text">service key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service-比例系数"><span class="nav-number">5.2.4.</span> <span class="nav-text">service 比例系数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#download-类"><span class="nav-number">5.3.</span> <span class="nav-text">download 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">5.3.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#所有方法预览"><span class="nav-number">5.3.2.</span> <span class="nav-text">所有方法预览</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用"><span class="nav-number">5.4.</span> <span class="nav-text">调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终效果"><span class="nav-number">6.</span> <span class="nav-text">最终效果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计灵感"><span class="nav-number">2.</span> <span class="nav-text">设计灵感</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始之前你需要了解的"><span class="nav-number">3.</span> <span class="nav-text">开始之前你需要了解的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎样分解动画"><span class="nav-number">4.</span> <span class="nav-text">怎样分解动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎样连贯动画"><span class="nav-number">5.</span> <span class="nav-text">怎样连贯动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">6.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本实现想法"><span class="nav-number">6.1.</span> <span class="nav-text">基本实现想法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#service-类"><span class="nav-number">6.2.</span> <span class="nav-text">service 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#service属性"><span class="nav-number">6.2.1.</span> <span class="nav-text">service属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service方法"><span class="nav-number">6.2.2.</span> <span class="nav-text">service方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service-key"><span class="nav-number">6.2.3.</span> <span class="nav-text">service key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service-比例系数"><span class="nav-number">6.2.4.</span> <span class="nav-text">service 比例系数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#download-类"><span class="nav-number">6.3.</span> <span class="nav-text">download 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">6.3.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#所有方法预览"><span class="nav-number">6.3.2.</span> <span class="nav-text">所有方法预览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理"><span class="nav-number">6.3.3.</span> <span class="nav-text">代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用"><span class="nav-number">6.4.</span> <span class="nav-text">调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终效果"><span class="nav-number">7.</span> <span class="nav-text">最终效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Release-notes"><span class="nav-number">8.</span> <span class="nav-text">Release notes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MIT-License"><span class="nav-number">9.</span> <span class="nav-text">MIT License</span></a></li></ol></div>
             
           </div>
         </section>
