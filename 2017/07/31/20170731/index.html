@@ -1,0 +1,699 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="代码展示:1.个人中心页面架构,2.商品列表页面架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My coding style~">
+<meta property="og:url" content="http://qiaotongxin.cc/2017/07/31/20170731/index.html">
+<meta property="og:site_name" content="乔同X的博客">
+<meta property="og:description" content="代码展示:1.个人中心页面架构,2.商品列表页面架构">
+<meta property="og:image" content="https://raw.githubusercontent.com/Josin22/image_source/master/yuncai_mine.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/Josin22/image_source/master/code_dirctory.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Josin22/image_source/master/yuncai_founction_goodlist_show.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/Josin22/image_source/master/func_good_list.png">
+<meta property="og:updated_time" content="2017-08-01T06:51:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="My coding style~">
+<meta name="twitter:description" content="代码展示:1.个人中心页面架构,2.商品列表页面架构">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Josin22/image_source/master/yuncai_mine.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://qiaotongxin.cc/2017/07/31/20170731/"/>
+
+  <title> My coding style~ | 乔同X的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">乔同X的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">iOS Developer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-diamond"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-shield"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                My coding style~
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-31T09:30:00+08:00" content="2017-07-31">
+              2017-07-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/代码实例/" itemprop="url" rel="index">
+                    <span itemprop="name">代码实例</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/31/20170731/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/31/20170731/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center"><p>代码展示:1.个人中心页面架构,2.商品列表页面架构</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="注-源码全贴-建议扫视-如果你能够懂"><a href="#注-源码全贴-建议扫视-如果你能够懂" class="headerlink" title="注:(源码全贴,建议扫视,如果你能够懂)"></a>注:(源码全贴,建议扫视,如果你能够懂)</h1><h1 id="Mine-Profile-UI"><a href="#Mine-Profile-UI" class="headerlink" title="Mine Profile UI"></a>Mine Profile UI</h1><p><img src="https://raw.githubusercontent.com/Josin22/image_source/master/yuncai_mine.gif" alt="images"></p>
+<h2 id="个人中心的目录架构"><a href="#个人中心的目录架构" class="headerlink" title="个人中心的目录架构"></a>个人中心的目录架构</h2><p><img src="https://raw.githubusercontent.com/Josin22/image_source/master/code_dirctory.png" alt="images"></p>
+<h3 id="viewModel"><a href="#viewModel" class="headerlink" title="viewModel"></a>viewModel</h3><h4 id="YBLProfileService-m"><a href="#YBLProfileService-m" class="headerlink" title="YBLProfileService.m"></a>YBLProfileService.m</h4><p>`<br><figure class="highlight plain"><figcaption><span>YBLProfileService ()<uicollectionviewdelegate,uicollectionviewdatasource,uicollectionviewdelegateflowlayout></uicollectionviewdelegate,uicollectionviewdatasource,uicollectionviewdelegateflowlayout></span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@property (nonatomic, weak  ) YBLProfileViewController *VC;</div><div class="line"></div><div class="line">@property (nonatomic, weak  ) YBLProfileViewModel      *viewModel;</div><div class="line"></div><div class="line">@property (nonatomic, strong) UICollectionView         *profileCollectionView;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation YBLProfileService</div><div class="line"></div><div class="line">- (instancetype)initWithVC:(UIViewController *)VC ViewModel:(NSObject *)viewModel&#123;</div><div class="line">    </div><div class="line">    if (self = [super initWithVC:VC ViewModel:viewModel]) &#123;</div><div class="line">     </div><div class="line">        _VC = (YBLProfileViewController *)VC;</div><div class="line">        _viewModel = (YBLProfileViewModel *)viewModel;</div><div class="line">        </div><div class="line">        WEAK</div><div class="line">        [RACObserve([YBLUserManageCenter shareInstance], userModel) subscribeNext:^(id x) &#123;</div><div class="line">            STRONG</div><div class="line">            [self reloadCollectionViewNoAnimation];</div><div class="line">        &#125;];</div><div class="line">    &#125;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)requestUserInfoData&#123;</div><div class="line">    </div><div class="line">    if ([YBLUserManageCenter shareInstance].isLoginStatus) &#123;</div><div class="line">        WEAK</div><div class="line">        //判断是否有userionfos_id</div><div class="line">        if ([YBLUserManageCenter shareInstance].userModel.userinfo_id.length==0) &#123;</div><div class="line">            //查询userionfos_id</div><div class="line">            [[YBLLoginViewModel siganlForGetUserInfoIds]subscribeError:^(NSError * _Nullable error) &#123;</div><div class="line">            &#125; completed:^&#123;</div><div class="line">                STRONG</div><div class="line">                [self requestUserInfoModel];    </div><div class="line">            &#125;];</div><div class="line">        &#125; else &#123;</div><div class="line">            [self requestUserInfoModel];</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        </div><div class="line">        [self reloadCollectionViewNoAnimation];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)reloadCollectionViewNoAnimation&#123;</div><div class="line"></div><div class="line">    [UIView performWithoutAnimation:^&#123;</div><div class="line">        [self.profileCollectionView jsReloadData];</div><div class="line">    &#125;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)requestUserInfoModel&#123;</div><div class="line">    WEAK</div><div class="line">    [[YBLLoginViewModel siganlForGetUserInfos] subscribeError:^(NSError * _Nullable error) &#123;</div><div class="line">    &#125; completed:^&#123;</div><div class="line">        STRONG</div><div class="line">        [self reloadCollectionViewNoAnimation];</div><div class="line">    &#125;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UICollectionView *)profileCollectionView&#123;</div><div class="line">    </div><div class="line">    if (!_profileCollectionView) &#123;</div><div class="line">        CGFloat collectionWi = _VC.view.width/4;</div><div class="line">        UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];</div><div class="line">        flowlayout.itemSize = CGSizeMake(collectionWi, 75);</div><div class="line">        flowlayout.minimumLineSpacing = 0;</div><div class="line">        flowlayout.minimumInteritemSpacing = 0;</div><div class="line">        _profileCollectionView = [[UICollectionView alloc] initWithFrame:[_VC.view bounds] collectionViewLayout:flowlayout];</div><div class="line">        _profileCollectionView.dataSource = self;</div><div class="line">        _profileCollectionView.delegate = self;</div><div class="line">        _profileCollectionView.alwaysBounceVertical = YES;</div><div class="line">        _profileCollectionView.showsVerticalScrollIndicator = NO;</div><div class="line">        _profileCollectionView.showsHorizontalScrollIndicator = NO;</div><div class="line">        _profileCollectionView.height = YBLWindowHeight - kBottomBarHeight;</div><div class="line">        _profileCollectionView.backgroundColor = [UIColor whiteColor];</div><div class="line">        [_profileCollectionView registerClass:NSClassFromString(@&quot;YBLProfileRowItemCell&quot;) forCellWithReuseIdentifier:@&quot;YBLProfileRowItemCell&quot;];</div><div class="line">        [_profileCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@&quot;UICollectionReusableView&quot;];</div><div class="line">        [_profileCollectionView registerClass:[YBLProfileWaveHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@&quot;YBLProfileWaveHeaderView&quot;];</div><div class="line">        [_VC.view addSubview:_profileCollectionView];</div><div class="line">    &#125;</div><div class="line">    return _profileCollectionView;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#pragma mark -  UICollectionViewDataSource</div><div class="line"></div><div class="line">- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView&#123;</div><div class="line">    return self.viewModel.profile_cell_data_array.count;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section &#123;</div><div class="line">    </div><div class="line">    return [self.viewModel.profile_cell_data_array[section] count];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath &#123;</div><div class="line">    </div><div class="line">    NSInteger row = indexPath.row;</div><div class="line">    NSInteger section = indexPath.section;</div><div class="line">    </div><div class="line">    YBLProfileRowItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@&quot;YBLProfileRowItemCell&quot;</div><div class="line">                                                                            forIndexPath:indexPath];</div><div class="line">    YBLProfileItemModel *model = self.viewModel.profile_cell_data_array[section][row];</div><div class="line">    [cell updateProfileItemModel:model];</div><div class="line">    WEAK</div><div class="line">    [[[cell.selectButton rac_signalForControlEvents:UIControlEventTouchUpInside] takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(__kindof UIControl * _Nullable x) &#123;</div><div class="line">        STRONG</div><div class="line">        [self.viewModel pushVCWithItemModel:model WithNavigationVC:self.VC];</div><div class="line">    &#125;];</div><div class="line">    return cell;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath &#123;</div><div class="line">    if([kind isEqualToString:UICollectionElementKindSectionHeader])&#123;</div><div class="line">        if (indexPath.section==0) &#123;</div><div class="line">            YBLProfileWaveHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind</div><div class="line">                                                                                       withReuseIdentifier:@&quot;YBLProfileWaveHeaderView&quot;</div><div class="line">                                                                                              forIndexPath:indexPath];</div><div class="line">            WEAK</div><div class="line">            [headerView reloadHeaderData];</div><div class="line">            </div><div class="line">            [[[headerView.setButton rac_signalForControlEvents:UIControlEventTouchUpInside] takeUntil:headerView.rac_prepareForReuseSignal] subscribeNext:^(__kindof UIControl * _Nullable x) &#123;</div><div class="line">                STRONG</div><div class="line">                YBLProdfileSettingViewController *settingVC = [YBLProdfileSettingViewController new];</div><div class="line">                [self.VC.navigationController pushViewController:settingVC animated:YES];</div><div class="line">            &#125;];</div><div class="line">            [[[headerView.bgButton rac_signalForControlEvents:UIControlEventTouchUpInside] takeUntil:headerView.rac_prepareForReuseSignal] subscribeNext:^(__kindof UIControl * _Nullable x) &#123;</div><div class="line">                STRONG</div><div class="line">                if (![YBLMethodTools checkLoginWithVc:self.VC]) &#123;</div><div class="line">                    return ;</div><div class="line">                &#125;</div><div class="line">                YBLAccountManageViewController *accountVC = [YBLAccountManageViewController new];</div><div class="line">                [self.VC.navigationController pushViewController:accountVC animated:YES];</div><div class="line">            &#125;];</div><div class="line">            self.waveHeaderView = headerView;</div><div class="line">            </div><div class="line">            return headerView;</div><div class="line">        &#125; else &#123;</div><div class="line">            UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind</div><div class="line">                                                                                      withReuseIdentifier:@&quot;UICollectionReusableView&quot;</div><div class="line">                                                                                             forIndexPath:indexPath];</div><div class="line">            headerView.backgroundColor = YBLViewBGColor;</div><div class="line">            return headerView;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section&#123;</div><div class="line">    if (section==0) &#123;</div><div class="line">        return CGSizeMake(YBLWindowWidth, (YBLWindowHeight-kNavigationbarHeight)/3);</div><div class="line">    &#125;</div><div class="line">    return CGSizeMake(YBLWindowWidth, space);</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<h4 id="YBLProfileViewModel"><a href="#YBLProfileViewModel" class="headerlink" title="YBLProfileViewModel"></a>YBLProfileViewModel</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div><div class="line">346</div><div class="line">347</div><div class="line">348</div><div class="line">349</div><div class="line">350</div><div class="line">351</div><div class="line">352</div><div class="line">353</div><div class="line">354</div><div class="line">355</div><div class="line">356</div><div class="line">357</div><div class="line">358</div><div class="line">359</div><div class="line">360</div><div class="line">361</div><div class="line">362</div><div class="line">363</div><div class="line">364</div><div class="line">365</div><div class="line">366</div><div class="line">367</div><div class="line">368</div><div class="line">369</div><div class="line">370</div><div class="line">371</div><div class="line">372</div><div class="line">373</div><div class="line">374</div><div class="line">375</div><div class="line">376</div><div class="line">377</div><div class="line">378</div><div class="line">379</div><div class="line">380</div><div class="line">381</div><div class="line">382</div><div class="line">383</div><div class="line">384</div><div class="line">385</div><div class="line">386</div><div class="line">387</div><div class="line">388</div><div class="line">389</div><div class="line">390</div><div class="line">391</div><div class="line">392</div><div class="line">393</div><div class="line">394</div><div class="line">395</div><div class="line">396</div><div class="line">397</div><div class="line">398</div><div class="line">399</div><div class="line">400</div><div class="line">401</div><div class="line">402</div><div class="line">403</div><div class="line">404</div><div class="line">405</div><div class="line">406</div><div class="line">407</div><div class="line">408</div><div class="line">409</div><div class="line">410</div><div class="line">411</div><div class="line">412</div><div class="line">413</div><div class="line">414</div><div class="line">415</div><div class="line">416</div><div class="line">417</div><div class="line">418</div><div class="line">419</div><div class="line">420</div><div class="line">421</div><div class="line">422</div><div class="line">423</div><div class="line">424</div><div class="line">425</div><div class="line">426</div><div class="line">427</div><div class="line">428</div><div class="line">429</div><div class="line">430</div><div class="line">431</div><div class="line">432</div><div class="line">433</div><div class="line">434</div><div class="line">435</div><div class="line">436</div><div class="line">437</div><div class="line">438</div><div class="line">439</div><div class="line">440</div><div class="line">441</div><div class="line">442</div><div class="line">443</div><div class="line">444</div><div class="line">445</div><div class="line">446</div><div class="line">447</div><div class="line">448</div></pre></td><td class="code"><pre><div class="line">@interface YBLProfileItemModel : NSObject</div><div class="line"></div><div class="line">@property (nonatomic, copy  ) NSString *profile_item_text;</div><div class="line">@property (nonatomic, strong) NSNumber *profile_item_value;</div><div class="line">@property (nonatomic, copy  ) NSString *profile_item_self_vc;</div><div class="line">@property (nonatomic)         id        profile_item_image_or_value;</div><div class="line">@property (nonatomic, strong) NSNumber *profile_orderBadgeValue;</div><div class="line"></div><div class="line">+ (YBLProfileItemModel *)getItemModelWithText:(NSString *)text</div><div class="line">                                        image:(id)image</div><div class="line">                                        value:(NSNumber *)value</div><div class="line">                                      self_vc:(NSString *)self_vc;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@interface YBLProfileViewModel : NSObject</div><div class="line"></div><div class="line">@property (nonatomic, strong) NSMutableArray *profile_cell_data_array;</div><div class="line"></div><div class="line">- (void)pushVCWithItemModel:(YBLProfileItemModel *)itemModel WithNavigationVC:(UIViewController *)profileVC;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">.m:</div><div class="line">@implementation YBLProfileItemModel</div><div class="line"></div><div class="line">+ (YBLProfileItemModel *)getItemModelWithText:(NSString *)text</div><div class="line">                                        image:(id)image</div><div class="line">                                        value:(NSNumber *)value</div><div class="line">                                      self_vc:(NSString *)self_vc&#123;</div><div class="line">    </div><div class="line">    YBLProfileItemModel *model = [YBLProfileItemModel new];</div><div class="line">    model.profile_item_text = text;</div><div class="line">    model.profile_item_image_or_value = image;</div><div class="line">    model.profile_item_value = value;</div><div class="line">    model.profile_item_self_vc = self_vc;</div><div class="line">    return model;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@interface YBLProfileViewModel ()</div><div class="line"></div><div class="line">@property (nonatomic, strong) NSMutableArray *profile_section0_data_array;</div><div class="line">@property (nonatomic, strong) NSMutableArray *profile_section1_data_array;</div><div class="line">@property (nonatomic, strong) NSMutableArray *profile_section2_data_array;</div><div class="line"></div><div class="line">@property (nonatomic, strong) NSMutableArray *section3_seller_data_array;</div><div class="line">@property (nonatomic, strong) NSMutableArray *section3_buyer_data_array;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation YBLProfileViewModel</div><div class="line"></div><div class="line">- (NSMutableArray *)profile_cell_data_array&#123;</div><div class="line">    if (!_profile_cell_data_array) &#123;</div><div class="line">        _profile_cell_data_array = [NSMutableArray array];</div><div class="line">    &#125;</div><div class="line">    if (_profile_cell_data_array.count&gt;0) &#123;</div><div class="line">        [_profile_cell_data_array removeAllObjects];</div><div class="line">    &#125;</div><div class="line">    [_profile_cell_data_array addObject:self.profile_section0_data_array];</div><div class="line">    [_profile_cell_data_array addObject:self.profile_section1_data_array];</div><div class="line">    [_profile_cell_data_array addObject:self.profile_section2_data_array];</div><div class="line">    </div><div class="line">    return _profile_cell_data_array;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  我的订单</div><div class="line"> *</div><div class="line"> */</div><div class="line">- (NSMutableArray *)profile_section0_data_array&#123;</div><div class="line">    if (!_profile_section0_data_array) &#123;</div><div class="line">        _profile_section0_data_array = [NSMutableArray array];</div><div class="line">        [_profile_section0_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;我的订单&quot;</div><div class="line">                                                                                    image:@&quot;profile_order&quot;</div><div class="line">                                                                                    value:@(0)</div><div class="line">                                                                                  self_vc:@&quot;YBLOrderViewController&quot;]];</div><div class="line">        </div><div class="line">        YBLProfileItemModel *dfModel = [YBLProfileItemModel getItemModelWithText:@&quot;待付款&quot;</div><div class="line">                                                                           image:@&quot;profile_money&quot;</div><div class="line">                                                                           value:@(1)</div><div class="line">                                                                         self_vc:@&quot;YBLOrderViewController&quot;];</div><div class="line">        [_profile_section0_data_array addObject:dfModel];</div><div class="line">        </div><div class="line">        YBLProfileItemModel *dsModel = [YBLProfileItemModel getItemModelWithText:@&quot;待收货&quot;</div><div class="line">                                                                          image:@&quot;profile_shouhuo&quot;</div><div class="line">                                                                          value:@(2)</div><div class="line">                                                                        self_vc:@&quot;YBLOrderViewController&quot;];</div><div class="line">        </div><div class="line">        [_profile_section0_data_array addObject:dsModel];</div><div class="line">        </div><div class="line">        YBLProfileItemModel *pModel = [YBLProfileItemModel getItemModelWithText:@&quot;待评价&quot;</div><div class="line">                                                                          image:@&quot;profile_pingjia&quot;</div><div class="line">                                                                          value:@(3)</div><div class="line">                                                                        self_vc:@&quot;YBLOrderCommentsViewController&quot;];</div><div class="line">        [_profile_section0_data_array addObject:pModel];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    [self handleNumberWithArray:_profile_section0_data_array index_section:0];</div><div class="line">    </div><div class="line">    return _profile_section0_data_array;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)handleNumberWithArray:(NSMutableArray *)array index_section:(NSInteger)index_section</div><div class="line">&#123;</div><div class="line">    NSInteger index = 0;</div><div class="line">    NSArray *valueCountArray;</div><div class="line">    NSInteger recordsCountOrNot = 0;</div><div class="line">    YBLUserInfoModel *infoModel = [YBLUserManageCenter shareInstance].userInfoModel;</div><div class="line">    if ([YBLUserManageCenter shareInstance].isLoginStatus) &#123;</div><div class="line">        switch (index_section) &#123;</div><div class="line">            case 0:</div><div class="line">            &#123;</div><div class="line">                //待支付 待收货 待评价</div><div class="line">                recordsCountOrNot = 0;</div><div class="line">                valueCountArray = @[@(infoModel.not_payment_count.integerValue),@(infoModel.not_shipment_count.integerValue),@(infoModel.not_commented_count.integerValue)];</div><div class="line">            &#125;</div><div class="line">                break;</div><div class="line">            case 1:</div><div class="line">            &#123;</div><div class="line">                //商品关注 店铺关注 浏览记录</div><div class="line">                recordsCountOrNot = [YBLDBManage shareDB].getRecordsCount;</div><div class="line">                valueCountArray = @[@(infoModel.product_follows_count.integerValue),@(infoModel.shop_follows_count.integerValue),@(recordsCountOrNot)];</div><div class="line">            &#125;</div><div class="line">                break;</div><div class="line">                </div><div class="line">            default:</div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        valueCountArray = @[@(0),@(0),@(0)];</div><div class="line">    &#125;</div><div class="line">    for (YBLProfileItemModel *pModel in array) &#123;</div><div class="line">        if (index!=0) &#123;</div><div class="line">            NSNumber *value = valueCountArray[index-1];</div><div class="line">            switch (index_section) &#123;</div><div class="line">                case 0:</div><div class="line">                &#123;</div><div class="line">                    //待支付 待收货 待评价</div><div class="line">                    pModel.profile_orderBadgeValue = value;</div><div class="line">                &#125;</div><div class="line">                    break;</div><div class="line">                case 1:</div><div class="line">                &#123;</div><div class="line">                    //商品关注 店铺关注 浏览记录</div><div class="line">                    pModel.profile_item_image_or_value = value;</div><div class="line">                &#125;</div><div class="line">                    break;</div><div class="line">                    </div><div class="line">                default:</div><div class="line">                    break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        index++;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  钱包</div><div class="line"> *</div><div class="line"> */</div><div class="line">- (NSMutableArray *)profile_section1_data_array&#123;</div><div class="line">    if (!_profile_section1_data_array) &#123;</div><div class="line">        _profile_section1_data_array = [NSMutableArray array];</div><div class="line">        [_profile_section1_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;我的钱包&quot;</div><div class="line">                                                                                    image:@&quot;profile_money2&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLMyWalletsViewController&quot;]];</div><div class="line">        [_profile_section1_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;商品关注&quot;</div><div class="line">                                                                                    image:@(0)</div><div class="line">                                                                                    value:@(0)</div><div class="line">                                                                                  self_vc:@&quot;YBLFollowGoodsStoreListViewController&quot;]];</div><div class="line">        [_profile_section1_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;店铺关注&quot;</div><div class="line">                                                                                    image:@(0)</div><div class="line">                                                                                    value:@(1)</div><div class="line">                                                                                  self_vc:@&quot;YBLFollowGoodsStoreListViewController&quot;]];</div><div class="line">        [_profile_section1_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;浏览记录&quot;</div><div class="line">                                                                                    image:@(0)</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLFooterPrintsViewController&quot;]];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    [self handleNumberWithArray:_profile_section1_data_array index_section:1];</div><div class="line"></div><div class="line">    return _profile_section1_data_array;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  功能区</div><div class="line"> *</div><div class="line"> */</div><div class="line">- (NSMutableArray *)profile_section2_data_array&#123;</div><div class="line">    if (!_profile_section2_data_array) &#123;</div><div class="line">        _profile_section2_data_array = [NSMutableArray array];</div><div class="line">    &#125;</div><div class="line">    if ([YBLUserManageCenter shareInstance].isLoginStatus&amp;&amp;[YBLUserManageCenter shareInstance].userType == UserTypeSeller&amp;&amp;[YBLUserManageCenter shareInstance].aasmState == AasmStateApproved) &#123;</div><div class="line">        //dab</div><div class="line">        _profile_section2_data_array = self.section3_seller_data_array;</div><div class="line">    &#125; else &#123;</div><div class="line">        //xiaob</div><div class="line">        _profile_section2_data_array = self.section3_buyer_data_array;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return _profile_section2_data_array;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSMutableArray *)section3_seller_data_array&#123;</div><div class="line">    </div><div class="line">    if (!_section3_seller_data_array) &#123;</div><div class="line">        _section3_seller_data_array = [NSMutableArray array];</div><div class="line">        /**</div><div class="line">         *  大b</div><div class="line">         */</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;我要采购&quot;</div><div class="line">                                                                                    image:@&quot;iwantcaigou&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLFoundPurchaseViewController&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;商品管理&quot;</div><div class="line">                                                                                    image:@&quot;good_manage&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLGoodsManageVC&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;订单管理&quot;</div><div class="line">                                                                                    image:@&quot;order_manage&quot;</div><div class="line">                                                                                    value:@(-1)</div><div class="line">                                                                                  self_vc:@&quot;YBLOrderViewController&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;商铺管理&quot;</div><div class="line">                                                                                    image:@&quot;store_manage&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLStoreViewController&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;营销管理&quot;</div><div class="line">                                                                                    image:@&quot;marketing_manage&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLMarketingManageVC&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;客户管理&quot;</div><div class="line">                                                                                    image:@&quot;custom_manage&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLMineMillionMessageViewModel&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;员工管理&quot;</div><div class="line">                                                                                    image:@&quot;yuangong_manage&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLStaffManageVC&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;分销管理&quot;</div><div class="line">                                                                                    image:@&quot;fenxiao_manage&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLDistributionManageVC&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;区域代理&quot;</div><div class="line">                                                                                    image:@&quot;profile_daili&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLRegionalAgentViewController&quot;]];</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;信用通&quot;</div><div class="line">                                                                                    image:@&quot;vip_profile&quot;</div><div class="line">                                                                                    value:nil</div><div class="line">                                                                                  self_vc:@&quot;YBLOpenCreditsViewController&quot;]];</div><div class="line">/*</div><div class="line">        [_section3_seller_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;帮助&quot;</div><div class="line">                                                                                   image:@&quot;my_help&quot;</div><div class="line">                                                                                   value:nil</div><div class="line">                                                                                 self_vc:@&quot;my_help&quot;]];</div><div class="line">*/</div><div class="line">    &#125;</div><div class="line">    YBLProfileItemModel *orderManageModel = _section3_seller_data_array[2];</div><div class="line">    YBLUserInfoModel *infoModel = [YBLUserManageCenter shareInstance].userInfoModel;</div><div class="line">    if ([YBLUserManageCenter shareInstance].isLoginStatus) &#123;</div><div class="line">        orderManageModel.profile_orderBadgeValue = infoModel.not_approved_count;</div><div class="line">    &#125; else &#123;</div><div class="line">        orderManageModel.profile_orderBadgeValue = @(0);</div><div class="line">    &#125;</div><div class="line">    return _section3_seller_data_array;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSMutableArray *)section3_buyer_data_array&#123;</div><div class="line">    </div><div class="line">    if (!_section3_buyer_data_array) &#123;</div><div class="line">        _section3_buyer_data_array = [NSMutableArray array];</div><div class="line">    &#125;</div><div class="line">    if (_section3_buyer_data_array.count&gt;0) &#123;</div><div class="line">        [_section3_buyer_data_array removeAllObjects];</div><div class="line">    &#125;</div><div class="line">    /**</div><div class="line">     *  小b</div><div class="line">     */</div><div class="line">    [_section3_buyer_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;我要赚钱&quot;</div><div class="line">                                                                              image:@&quot;iwantmoney&quot;</div><div class="line">                                                                              value:nil</div><div class="line">                                                                            self_vc:@&quot;YBLIWantMoneyViewController&quot;]];</div><div class="line">    [_section3_buyer_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;区域代理&quot;</div><div class="line">                                                                              image:@&quot;profile_daili&quot;</div><div class="line">                                                                              value:nil</div><div class="line">                                                                            self_vc:@&quot;YBLRegionalAgentViewController&quot;]];</div><div class="line">    </div><div class="line">    if ([YBLUserManageCenter shareInstance].aasmState == AasmStateApproved) &#123;</div><div class="line">        </div><div class="line">        [_section3_buyer_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;VIP&quot;</div><div class="line">                                                                                  image:@&quot;vip_profile&quot;</div><div class="line">                                                                                  value:nil</div><div class="line">                                                                                self_vc:@&quot;YBLOpenCreditsViewController&quot;]];</div><div class="line">    &#125; else &#123;</div><div class="line">        </div><div class="line">        [_section3_buyer_data_array addObject:[YBLProfileItemModel getItemModelWithText:@&quot;帮助&quot;</div><div class="line">                                                                                  image:@&quot;my_help&quot;</div><div class="line">                                                                                  value:nil</div><div class="line">                                                                                self_vc:@&quot;my_help&quot;]];</div><div class="line">        </div><div class="line">        if ((([YBLUserManageCenter shareInstance].aasmState == AasmStateRejected||[YBLUserManageCenter shareInstance].aasmState == AasmStateWaiteApproved)&amp;&amp;[YBLUserManageCenter shareInstance].userType == UserTypeSeller)||[YBLUserManageCenter shareInstance].userType == UserTypeGuest) &#123;</div><div class="line">            [_section3_buyer_data_array insertObject:[YBLProfileItemModel getItemModelWithText:@&quot;我要开店&quot;</div><div class="line">                                                                                         image:@&quot;store_renzheng&quot;</div><div class="line">                                                                                         value:nil</div><div class="line">                                                                                       self_vc:@&quot;YBLIndustryScaleViewController&quot;]</div><div class="line">                                             atIndex:0];</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        if ((([YBLUserManageCenter shareInstance].aasmState == AasmStateRejected||[YBLUserManageCenter shareInstance].aasmState == AasmStateWaiteApproved)&amp;&amp;[YBLUserManageCenter shareInstance].userType != UserTypeSeller)||[YBLUserManageCenter shareInstance].userType == UserTypeGuest) &#123;</div><div class="line">            [_section3_buyer_data_array insertObject:[YBLProfileItemModel getItemModelWithText:@&quot;采购认证&quot;</div><div class="line">                                                                                         image:@&quot;shimingrenzheng&quot;</div><div class="line">                                                                                         value:nil</div><div class="line">                                                                                       self_vc:@&quot;YBLCertificationVC&quot;]</div><div class="line">                                             atIndex:0];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return _section3_buyer_data_array;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)pushVCWithItemModel:(YBLProfileItemModel *)itemModel WithNavigationVC:(UIViewController *)profileVC&#123;</div><div class="line"></div><div class="line">    NSString *classname = itemModel.profile_item_self_vc;</div><div class="line">    </div><div class="line">    Class class = NSClassFromString(classname);</div><div class="line">    </div><div class="line">    if ([classname isEqualToString:@&quot;my_help&quot;])&#123;</div><div class="line">        </div><div class="line">        [YBLMethodTools pushWebVcFrom:profileVC URL:H5_URL_UseHelp_image title:@&quot;注册认证流程&quot;];</div><div class="line">        </div><div class="line">        return;</div><div class="line">        </div><div class="line">    &#125; else if ([classname isEqualToString:@&quot;YBLRegionalAgentViewController&quot;])&#123;</div><div class="line">        </div><div class="line">        YBLRegionalAgentViewController *agenVC = [YBLRegionalAgentViewController new];</div><div class="line">        [profileVC.navigationController pushViewController:agenVC animated:YES];</div><div class="line">        </div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if (![YBLMethodTools checkLoginWithVc:profileVC]) &#123;</div><div class="line">        return ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    #warning 未开发功能</div><div class="line">    if ([classname isEqualToString:@&quot;YBLDistributionManageVC&quot;]||</div><div class="line">        [classname isEqualToString:@&quot;YBLIWantMoneyViewController&quot;]||</div><div class="line">        !classname)&#123;</div><div class="line">        [SVProgressHUD showInfoWithStatus:@&quot;此功能即将上线 \n 敬请期待!&quot;];</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    id classVC;</div><div class="line">    </div><div class="line">    if ([classname isEqualToString:@&quot;YBLFoundPurchaseViewController&quot;]) &#123;</div><div class="line">     </div><div class="line">        YBLCategoryViewModel *wantPurchaseVC_viewModel = [YBLCategoryViewModel new];</div><div class="line">        wantPurchaseVC_viewModel.goodCategoryType = GoodCategoryTypeForPurchaseWithOutTabbar;</div><div class="line">        YBLAddGoodViewController *wantPurchaseVC = [[YBLAddGoodViewController alloc] init];</div><div class="line">        wantPurchaseVC.viewModel = wantPurchaseVC_viewModel;</div><div class="line">        classVC = wantPurchaseVC;</div><div class="line">        </div><div class="line">    &#125;else if ([classname isEqualToString:@&quot;YBLStoreViewController&quot;])&#123;</div><div class="line">        </div><div class="line">        YBLStoreViewModel *viewModel = [YBLStoreViewModel new];</div><div class="line">        viewModel.shopid = [YBLUserManageCenter shareInstance].userModel.userinfo_id;</div><div class="line">        viewModel.storeType = StoreTypePersonal;</div><div class="line">        YBLStoreViewController *storeVC = [[YBLStoreViewController alloc] init];</div><div class="line">        storeVC.viewModel = viewModel;</div><div class="line">        classVC = storeVC;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    else if ([classname isEqualToString:@&quot;YBLFollowGoodsStoreListViewController&quot;])&#123;</div><div class="line">        </div><div class="line">        YBLFollowGoodsStoreViewModel *viewModel = [YBLFollowGoodsStoreViewModel new];</div><div class="line">        viewModel.currentFoundIndex  = itemModel.profile_item_value.integerValue;</div><div class="line">        YBLFollowGoodsStoreListViewController *myVC = [YBLFollowGoodsStoreListViewController new];</div><div class="line">        myVC.viewModel = viewModel;</div><div class="line">        classVC = myVC;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    else if ([classname isEqualToString:@&quot;YBLGoodsManageVC&quot;])&#123;</div><div class="line">      </div><div class="line">        YBLGoodsManageViewModel *viewModel = [YBLGoodsManageViewModel new];</div><div class="line">        YBLGoodsManageVC *goodManageVC = [YBLGoodsManageVC new];</div><div class="line">        goodManageVC.viewModel = viewModel;</div><div class="line">        </div><div class="line">        classVC = goodManageVC;</div><div class="line">        </div><div class="line">    &#125; else if ([classname isEqualToString:@&quot;YBLIndustryScaleViewController&quot;]||[classname isEqualToString:@&quot;YBLCertificationVC&quot;])&#123;</div><div class="line">      </div><div class="line">        if ([YBLUserManageCenter shareInstance].aasmState == AasmStateUnknown||[YBLUserManageCenter shareInstance].aasmState == AasmStateInitial) &#123;</div><div class="line">            </div><div class="line">            YBLIndustryScaleViewController *indusVC = [YBLIndustryScaleViewController new];</div><div class="line">            if ([classname isEqualToString:@&quot;YBLIndustryScaleViewController&quot;]) &#123;</div><div class="line">                indusVC.currentType = user_type_seller_key;</div><div class="line">            &#125; else &#123;</div><div class="line">                indusVC.currentType = user_type_buyer_key;</div><div class="line">            &#125;</div><div class="line">            classVC = indusVC;</div><div class="line">            </div><div class="line">        &#125; else &#123;</div><div class="line">            </div><div class="line">            YBLTheResultViewController *resultVC = [YBLTheResultViewController new];</div><div class="line">            classVC = resultVC;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125; else if ([classname isEqualToString:@&quot;YBLOrderViewController&quot;])&#123;</div><div class="line">      </div><div class="line">        YBLOrderViewModel *viewModel = [YBLOrderViewModel new];</div><div class="line">        OrderSource source;</div><div class="line">        if (itemModel.profile_item_value.intValue == -1) &#123;</div><div class="line">            //dabi</div><div class="line">            source = OrderSourceSeller;</div><div class="line">            viewModel.currentFoundIndex = 0;</div><div class="line">        &#125; else &#123;</div><div class="line">            //xiaob</div><div class="line">            source = OrderSourceBuyer;</div><div class="line">            viewModel.currentFoundIndex = itemModel.profile_item_value.intValue;</div><div class="line">        &#125;</div><div class="line">        viewModel.orderSource = source;</div><div class="line">        YBLOrderViewController *orderVC = [YBLOrderViewController new];</div><div class="line">        orderVC.viewModel = viewModel;</div><div class="line">        classVC = orderVC;</div><div class="line">        </div><div class="line">    &#125; else if ([classname isEqualToString:@&quot;YBLMineMillionMessageViewModel&quot;]) &#123;</div><div class="line">      </div><div class="line">        YBLMineMillionMessageViewModel *viewModel = [YBLMineMillionMessageViewModel new];</div><div class="line">        viewModel.millionType = MillionTypeMine;</div><div class="line">        YBLMineMillionMessageViewController *millionVc = [YBLMineMillionMessageViewController new];</div><div class="line">        millionVc.viewModel = viewModel;</div><div class="line">        classVC = millionVc;</div><div class="line">        </div><div class="line">    &#125; else &#123;</div><div class="line">        </div><div class="line">        classVC = [[class alloc] init];</div><div class="line">    &#125;</div><div class="line">    [profileVC.navigationController pushViewController:classVC animated:YES];</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><p>YBLProfileRowItemCell.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">@implementation YBLProfileRowItemCell</div><div class="line"></div><div class="line">- (instancetype)initWithFrame:(CGRect)frame</div><div class="line">&#123;</div><div class="line">    self = [super initWithFrame:frame];</div><div class="line">    if (self) &#123;</div><div class="line">        [self createUI];</div><div class="line">    &#125;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)createUI&#123;</div><div class="line">    </div><div class="line">    self.contentView.backgroundColor = [UIColor whiteColor];</div><div class="line">    </div><div class="line">    self.selectButton = [UIButton buttonWithType:UIButtonTypeCustom];</div><div class="line">    self.selectButton.frame = [self bounds];</div><div class="line">    [self.contentView addSubview:self.selectButton];</div><div class="line">    </div><div class="line">    UIImageView *imageView = [[UIImageView alloc] init];</div><div class="line">    [self.contentView addSubview:imageView];</div><div class="line">    self.iconImageView = imageView;</div><div class="line">    [imageView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.width.height.equalTo(@25);</div><div class="line">        make.centerX.equalTo(self.mas_centerX);</div><div class="line">        make.centerY.equalTo(self.mas_centerY).with.offset(-12);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    self.badgeLabel = [[YBLBadgeLabel alloc] initWithFrame:CGRectZero];</div><div class="line">    self.badgeLabel.center = CGPointMake(self.width/2+10, self.height/2-30);</div><div class="line">    [self.contentView addSubview:self.badgeLabel];</div><div class="line">    </div><div class="line">    UILabel *label = [[UILabel alloc] init];</div><div class="line">    label.font = YBLFont(16);</div><div class="line">    label.textColor = [UIColor redColor];</div><div class="line">    label.textAlignment = NSTextAlignmentCenter;</div><div class="line">    [self.contentView addSubview:label];</div><div class="line">    self.nummberLabel = label;</div><div class="line">    [label mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.right.equalTo(@0);</div><div class="line">        make.height.equalTo(@25);</div><div class="line">        make.centerY.equalTo(self.mas_centerY).with.offset(-12);</div><div class="line">    &#125;];</div><div class="line"></div><div class="line">    UILabel *label1 = [[UILabel alloc] init];</div><div class="line">    label1.font = YBLFont(11);</div><div class="line">    label1.textColor = YBLColor(40, 40, 40, 1.0);</div><div class="line">    label1.textAlignment = NSTextAlignmentCenter;</div><div class="line">    [self.contentView addSubview:label1];</div><div class="line">    self.titleLabel = label1;</div><div class="line">    [label1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.right.equalTo(@0);</div><div class="line">        make.height.equalTo(@25);</div><div class="line">        make.centerY.equalTo(self.mas_centerY).with.offset(12);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)updateProfileItemModel:(YBLProfileItemModel *)model&#123;</div><div class="line">    </div><div class="line">    if ([model.profile_item_image_or_value isKindOfClass:[NSString class]]) &#123;</div><div class="line">        self.iconImageView.hidden = NO;</div><div class="line">        self.nummberLabel.hidden = YES;</div><div class="line">        self.iconImageView.image = [UIImage imageNamed:model.profile_item_image_or_value];</div><div class="line">    &#125; else if ([model.profile_item_image_or_value isKindOfClass:[NSNumber class]]) &#123;</div><div class="line">        self.iconImageView.hidden = YES;</div><div class="line">        self.nummberLabel.hidden = NO;</div><div class="line">        self.nummberLabel.text = [NSString stringWithFormat:@&quot;%@&quot;,model.profile_item_image_or_value];</div><div class="line">    &#125;</div><div class="line">    self.titleLabel.text = model.profile_item_text;</div><div class="line">    if (model.profile_orderBadgeValue&amp;&amp;model.profile_orderBadgeValue.integerValue!=0) &#123;</div><div class="line">        self.badgeLabel.hidden = NO;</div><div class="line">        self.badgeLabel.bageValue = model.profile_orderBadgeValue.integerValue;</div><div class="line">    &#125; else &#123;</div><div class="line">        self.badgeLabel.hidden = YES;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h3 id="ViewController"><a href="#ViewController" class="headerlink" title="ViewController"></a>ViewController</h3><p>YBLProfileViewController.m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">@interface YBLProfileViewController ()</div><div class="line"></div><div class="line">@property (nonatomic, strong) YBLProfileViewModel *viewModel;</div><div class="line">@property (nonatomic, strong) YBLProfileService   *service;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation YBLProfileViewController</div><div class="line"></div><div class="line"></div><div class="line">- (void)viewWillAppear:(BOOL)animated &#123;</div><div class="line">    [super viewWillAppear:animated];</div><div class="line"></div><div class="line">    [self.service requestUserInfoData];</div><div class="line">    [self.service.waveHeaderView.waveView startWaveAnimation];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewWillDisappear:(BOOL)animated &#123;</div><div class="line">    [super viewWillDisappear:animated];</div><div class="line">    </div><div class="line">    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:false];</div><div class="line">    [self.service.waveHeaderView.waveView stopWaveAnimation];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line"></div><div class="line">    self.viewModel = [YBLProfileViewModel new];</div><div class="line">    self.service = [[YBLProfileService alloc] initWithVC:self ViewModel:self.viewModel];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="引"><a href="#引" class="headerlink" title="引"></a>引</h2><p>关于波浪的实现,<a href="http://qiaotongxin.cc/2016/08/22/20160822/">可以去我另一篇文章看看</a></p>
+<h1 id="Good-List"><a href="#Good-List" class="headerlink" title="Good List"></a>Good List</h1><p><img src="https://raw.githubusercontent.com/Josin22/image_source/master/yuncai_founction_goodlist_show.gif" alt="images"></p>
+<h2 id="商品列表的目录架构"><a href="#商品列表的目录架构" class="headerlink" title="商品列表的目录架构"></a>商品列表的目录架构</h2><p><img src="https://raw.githubusercontent.com/Josin22/image_source/master/func_good_list.png" alt="images"></p>
+<h3 id="viewModel-1"><a href="#viewModel-1" class="headerlink" title="viewModel"></a>viewModel</h3><h4 id="YBLGoodListViewModel-h"><a href="#YBLGoodListViewModel-h" class="headerlink" title="YBLGoodListViewModel.h"></a>YBLGoodListViewModel.h</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">@interface YBLGoodListViewModel : YBLTwotageMuduleViewModel</div><div class="line">/**</div><div class="line"> *  关键字搜索</div><div class="line"> */</div><div class="line">@property (nonatomic, strong) NSString          *keyWord;</div><div class="line">/**</div><div class="line"> *  二级商品id</div><div class="line"> */</div><div class="line">@property (nonatomic, strong) NSString          *category_id;</div><div class="line">/**</div><div class="line"> *  店铺id</div><div class="line"> */</div><div class="line">@property (nonatomic, strong) NSString          *userinfo_id;</div><div class="line">/**</div><div class="line"> *  排序 顺序</div><div class="line"> */</div><div class="line">@property (nonatomic, assign) OrderSequence     orderSequence;</div><div class="line">/**</div><div class="line"> *  排序 字段</div><div class="line"> */</div><div class="line">@property (nonatomic, assign) OrderSequenceText orderSequenceText;</div><div class="line"></div><div class="line">@property (nonatomic, assign) CGFloat           lastPosition;</div><div class="line"></div><div class="line">@property (nonatomic, assign) NSInteger         page_list;</div><div class="line"></div><div class="line">@property (nonatomic, assign) NSInteger         page_count;</div><div class="line"></div><div class="line">@property (nonatomic, strong) NSMutableArray    *searchDataArray;</div><div class="line"></div><div class="line">- (RACSignal *)siganlForSearchGoodsAgain:(BOOL)isNewSearch;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h4 id="YBLGoodListViewModel-m"><a href="#YBLGoodListViewModel-m" class="headerlink" title="YBLGoodListViewModel.m"></a>YBLGoodListViewModel.m</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">@implementation YBLGoodListViewModel</div><div class="line"></div><div class="line">- (NSMutableArray *)searchDataArray&#123;</div><div class="line">    if (!_searchDataArray) &#123;</div><div class="line">        _searchDataArray = [NSMutableArray array];</div><div class="line">    &#125;</div><div class="line">    return _searchDataArray;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (RACSignal *)siganlForSearchGoodsAgain:(BOOL)isNewSearch&#123;</div><div class="line">    </div><div class="line">    RACReplaySubject *subject = [RACReplaySubject subject];</div><div class="line">    /**</div><div class="line">     *  默认综合--&gt;升序</div><div class="line">     */</div><div class="line">    NSString *orderField = @&quot;sale_order_count&quot;;</div><div class="line">    NSString *orderAsc = nil;</div><div class="line">    switch (self.orderSequenceText) &#123;</div><div class="line">        case OrderSequenceTextComposite:</div><div class="line">//            orderField = nil;</div><div class="line">            break;</div><div class="line">        case OrderSequenceTextSaleCount:</div><div class="line">            orderField = @&quot;sale_order_count&quot;;</div><div class="line">            break;</div><div class="line">        case OrderSequenceTextPrice:</div><div class="line">            orderField = @&quot;price&quot;;</div><div class="line">            break;</div><div class="line">            </div><div class="line">        default:</div><div class="line">            break;</div><div class="line">    &#125;</div><div class="line">    switch (self.orderSequence) &#123;</div><div class="line">        case OrderSequenceDescending:</div><div class="line">            orderAsc = @&quot;desc&quot;;</div><div class="line">            break;</div><div class="line">        case OrderSequenceAscending:</div><div class="line">            orderAsc = @&quot;asc&quot;;</div><div class="line">            break;</div><div class="line">            </div><div class="line">        default:</div><div class="line">            break;</div><div class="line">    &#125;</div><div class="line">    if (isNewSearch) &#123;</div><div class="line">        self.page_list = 0;</div><div class="line">        [YBLLogLoadingView showInWindow];</div><div class="line">    &#125;</div><div class="line">    self.page_list++;</div><div class="line">    [[self siganlForGoodListCategoryID:self.category_id</div><div class="line">                           userinfoID:self.userinfo_id</div><div class="line">                           searchText:self.keyWord</div><div class="line">                           orderField:orderField</div><div class="line">                             orderAsc:orderAsc</div><div class="line">                                 page:self.page_list] subscribeNext:^(id x) &#123;</div><div class="line">        NSArray *dataArray = [NSArray yy_modelArrayWithClass:[YBLGoodModel class] json:x[@&quot;products&quot;]];</div><div class="line">        self.page_count = ceil([x[@&quot;total_count&quot;] integerValue]/page_size);</div><div class="line">        if (isNewSearch) &#123;</div><div class="line">            [YBLLogLoadingView dismissInWindow];</div><div class="line">            [self.searchDataArray removeAllObjects];</div><div class="line">        &#125;</div><div class="line">        NSMutableArray *indexps = [YBLMethodTools getRowAppendingIndexPathsWithIndex:self.searchDataArray.count appendingCount:dataArray.count inSection:0];</div><div class="line">        if (dataArray.count!=0) &#123;</div><div class="line">            [self.searchDataArray addObjectsFromArray:dataArray];</div><div class="line">            self.isNoMoreData = NO;</div><div class="line">        &#125; else &#123;</div><div class="line">            self.isNoMoreData = YES;</div><div class="line">        &#125;</div><div class="line">        [subject sendNext:indexps];</div><div class="line">        [subject sendCompleted];</div><div class="line">        </div><div class="line">    &#125; error:^(NSError * _Nullable error) &#123;</div><div class="line">        if (self.page_list&gt;0) &#123;</div><div class="line">            self.page_list--;</div><div class="line">        &#125;</div><div class="line">        [subject sendError:error];</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    return subject;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h4 id="YBLGoodListService-m"><a href="#YBLGoodListService-m" class="headerlink" title="YBLGoodListService.m"></a>YBLGoodListService.m</h4><p>Main Method:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (instancetype)initWithVC:(UIViewController *)VC ViewModel:(NSObject *)viewModel&#123;</div><div class="line">    </div><div class="line">    if (self = [super initWithVC:VC ViewModel:viewModel]) &#123;</div><div class="line">        </div><div class="line">        _viewModel = (YBLGoodListViewModel *)viewModel;</div><div class="line">        _Vc = (YBLGoodListViewController *)VC;</div><div class="line">        </div><div class="line">        [self createNavigationBar];</div><div class="line">        </div><div class="line">        [self requestSearchDataAgain:YES];</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">    return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="结"><a href="#结" class="headerlink" title="结"></a>结</h1><p>这就是我的编码套路,这样写的好处不用多言,单元测试、代码复用、继承扩展、诸此,待你撸码的时候才会发现多好用,以上你首先多RAC有些了解。欢迎纠正,补充,建议,共同进步~</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.png" alt="乔同X WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.png" alt="乔同X Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/07/20161201/" rel="next" title="再做一次可爱的猫咪switch开关动画吧~">
+                <i class="fa fa-chevron-left"></i> 再做一次可爱的猫咪switch开关动画吧~
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/31/20170731/"
+           data-title="My coding style~" data-url="http://qiaotongxin.cc/2017/07/31/20170731/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.png"
+               alt="乔同X" />
+          <p class="site-author-name" itemprop="name">乔同X</p>
+          <p class="site-description motion-element" itemprop="description">Do What I Can Do!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Josin22" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5559102394" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://iamyuhang.com/" title="冀宇航" target="_blank">冀宇航</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.guiyongdong.com/" title="贵永冬" target="_blank">贵永冬</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注-源码全贴-建议扫视-如果你能够懂"><span class="nav-number">1.</span> <span class="nav-text">注:(源码全贴,建议扫视,如果你能够懂)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mine-Profile-UI"><span class="nav-number">2.</span> <span class="nav-text">Mine Profile UI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人中心的目录架构"><span class="nav-number">2.1.</span> <span class="nav-text">个人中心的目录架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#viewModel"><span class="nav-number">2.1.1.</span> <span class="nav-text">viewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#YBLProfileService-m"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">YBLProfileService.m</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YBLProfileViewModel"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">YBLProfileViewModel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View"><span class="nav-number">2.1.2.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewController"><span class="nav-number">2.1.3.</span> <span class="nav-text">ViewController</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引"><span class="nav-number">2.2.</span> <span class="nav-text">引</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Good-List"><span class="nav-number">3.</span> <span class="nav-text">Good List</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#商品列表的目录架构"><span class="nav-number">3.1.</span> <span class="nav-text">商品列表的目录架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#viewModel-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">viewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#YBLGoodListViewModel-h"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">YBLGoodListViewModel.h</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YBLGoodListViewModel-m"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">YBLGoodListViewModel.m</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YBLGoodListService-m"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">YBLGoodListService.m</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结"><span class="nav-number">4.</span> <span class="nav-text">结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">乔同X</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"josin22"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
