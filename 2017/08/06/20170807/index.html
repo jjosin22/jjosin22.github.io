@@ -1,0 +1,699 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="RN," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="大概是项目里太多的分页加载数据,所以一个简单、快捷、高效分页加载会使你那么的愉悦.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用预加载让分页加载不再繁琐之单个分页讲解">
+<meta property="og:url" content="http://qiaotongxin.cc/2017/08/06/20170807/index.html">
+<meta property="og:site_name" content="乔同X的博客">
+<meta property="og:description" content="大概是项目里太多的分页加载数据,所以一个简单、快捷、高效分页加载会使你那么的愉悦.">
+<meta property="og:image" content="https://raw.githubusercontent.com/Josin22/image_source/master/yun_pdlist_preload.gif">
+<meta property="og:updated_time" content="2017-08-09T08:29:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用预加载让分页加载不再繁琐之单个分页讲解">
+<meta name="twitter:description" content="大概是项目里太多的分页加载数据,所以一个简单、快捷、高效分页加载会使你那么的愉悦.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Josin22/image_source/master/yun_pdlist_preload.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://qiaotongxin.cc/2017/08/06/20170807/"/>
+
+  <title> 利用预加载让分页加载不再繁琐之单个分页讲解 | 乔同X的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">乔同X的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">iOS Developer</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-diamond"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-server"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-shield"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                利用预加载让分页加载不再繁琐之单个分页讲解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-06T09:30:00+08:00" content="2017-08-06">
+              2017-08-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center"><p>大概是项目里太多的分页加载数据,所以一个简单、快捷、高效分页加载会使你那么的愉悦.</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="大概就是这么丝滑"><a href="#大概就是这么丝滑" class="headerlink" title="大概就是这么丝滑"></a>大概就是这么丝滑</h1><p><img src="https://raw.githubusercontent.com/Josin22/image_source/master/yun_pdlist_preload.gif" alt="images"></p>
+<p>github链接:<a href="https://github.com/Josin22/JSLoadMoreService" target="_blank" rel="external">JSLoadMoreService</a></p>
+<h1 id="用法讲解"><a href="#用法讲解" class="headerlink" title="用法讲解"></a>用法讲解</h1><h2 id="属性预览"><a href="#属性预览" class="headerlink" title="属性预览"></a>属性预览</h2><p>NSObject+LoadMoreService.h<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  分页请求数量</div><div class="line"> */</div><div class="line">static NSInteger const PerPageMaxCount = 20;</div><div class="line"></div><div class="line">@interface NSObject (LoadMoreService)</div><div class="line">/**</div><div class="line"> *  每次请求追加的indexpaths</div><div class="line"> */</div><div class="line">@property (nonatomic, strong) NSMutableArray *appendingIndexpaths;</div><div class="line">/**</div><div class="line"> *  数据数组</div><div class="line"> */</div><div class="line">@property (nonatomic, strong) NSMutableArray *dataArray;</div><div class="line">/**</div><div class="line"> *  原始请求数据</div><div class="line"> */</div><div class="line">@property (nonatomic, strong) id orginResponseObject;</div><div class="line">/**</div><div class="line"> *  当前页码</div><div class="line"> */</div><div class="line">@property (nonatomic, assign) NSInteger currentPage;</div><div class="line">/**</div><div class="line"> *  是否请求中</div><div class="line"> */</div><div class="line">@property (nonatomic, assign) BOOL isRequesting;</div><div class="line">/**</div><div class="line"> *  是否数据加载完</div><div class="line"> */</div><div class="line">@property (nonatomic, assign) BOOL isNoMoreData;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  单一请求分页加载数据</div><div class="line"> *</div><div class="line"> *  @param baseURL               请求地址</div><div class="line"> *  @param para                  请求参数</div><div class="line"> *  @param keyOfArray            取数组的key(注:多层请用/分隔)</div><div class="line"> *  @param classNameOfModelArray 序列化model的class_name</div><div class="line"> *  @param isReload              (YES:刷新、NO:加载更多)</div><div class="line"> *</div><div class="line"> *  @return RACSingal</div><div class="line"> */</div><div class="line">- (RACSignal *)js_singalForSingleRequestWithURL:(NSString *)baseURL</div><div class="line">                                           para:(NSMutableDictionary *)para</div><div class="line">                                     keyOfArray:(NSString *)keyOfArray</div><div class="line">                          classNameOfModelArray:(NSString *)classNameOfModelArray</div><div class="line">                                       isReload:(BOOL)isReload;</div><div class="line"></div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<p>UITableView+Preload.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  预加载触发的数量</div><div class="line"> */</div><div class="line">static NSInteger const PreloadMinCount = 10;</div><div class="line"></div><div class="line">typedef void(^PreloadBlock)(void);</div><div class="line"></div><div class="line">typedef void(^ReloadBlock)(void);</div><div class="line"></div><div class="line">@interface UITableView (Prereload)</div><div class="line">/**</div><div class="line"> *  预加载回调</div><div class="line"> */</div><div class="line">@property (nonatomic, copy  ) PreloadBlock js_preloadBlock;</div><div class="line">/**</div><div class="line"> *  tableview数据</div><div class="line"> */</div><div class="line">@property (nonatomic, strong) NSMutableArray *dataArray;</div><div class="line">/**</div><div class="line"> *  计算当前index是否达到预加载条件并回调</div><div class="line"> *</div><div class="line"> *  @param currentIndex row or section</div><div class="line"> */</div><div class="line">- (void)preloadDataWithCurrentIndex:(NSInteger)currentIndex;</div><div class="line">/**</div><div class="line"> *  上拉刷新</div><div class="line"> *</div><div class="line"> *  @param js_reloadBlock 刷新回调</div><div class="line"> */</div><div class="line">- (void)headerReloadBlock:(ReloadBlock)js_reloadBlock;</div><div class="line">/**</div><div class="line"> *  结束上拉刷新</div><div class="line"> */</div><div class="line">- (void)endReload;</div></pre></td></tr></table></figure>
+<h2 id="如何调用"><a href="#如何调用" class="headerlink" title="如何调用"></a>如何调用</h2><h3 id="建一个viewModel类"><a href="#建一个viewModel类" class="headerlink" title="建一个viewModel类"></a>建一个viewModel类</h3><p>这里处理数据的逻辑,所以写了方法 <figure class="highlight plain"><figcaption><span>(RACSignal *)siganlForJokeDataIsReload:(BOOL)isReload ```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">下面就是怎样调用分类的方法:</div><div class="line"></div><div class="line"></div><div class="line">```- (RACSignal *)siganlForJokeDataIsReload:(BOOL)isReload&#123;</div><div class="line">    </div><div class="line">    RACReplaySubject *subject = [RACReplaySubject subject];</div><div class="line"></div><div class="line">    [[self js_singalForSingleRequestWithURL:Test_Page_URL</div><div class="line">                                      para:nil</div><div class="line">                                keyOfArray:@&quot;pdlist&quot;</div><div class="line">                     classNameOfModelArray:@&quot;JSGoodListModel&quot;</div><div class="line">                                  isReload:isReload] subscribeNext:^(id  _Nullable x) &#123;</div><div class="line">        /**</div><div class="line">         *  x : 分类方法(js_singalForSingleRequestWithURL:...)里 sendNext 传过来的数组</div><div class="line">         *  你可以对每次传过来的数组的元素&quot;再加工&quot;,知道达到你的要求后 再 sendNext</div><div class="line">         */</div><div class="line">        //...</div><div class="line">        [subject sendNext:x];</div><div class="line">    &#125; error:^(NSError * _Nullable error) &#123;</div><div class="line">        [subject sendError:error];</div><div class="line">    &#125; completed:^&#123;</div><div class="line">        /**</div><div class="line">         *  走到这里为,每次分页请求所有逻辑处理完毕</div><div class="line">         */</div><div class="line">        [subject sendCompleted];</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    return subject;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="VC调用"><a href="#VC调用" class="headerlink" title="VC调用:"></a>VC调用:</h3><p>整个方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)requestGoodListIsReload:(BOOL)isReload&#123;</div><div class="line">    </div><div class="line">    kWeakSelf(self)</div><div class="line">    [[self.viewModel siganlForJokeDataIsReload:isReload] subscribeError:^(NSError * _Nullable error) &#123;</div><div class="line">        </div><div class="line">    &#125; completed:^&#123;</div><div class="line">        kStrongSelf(self)</div><div class="line">        self.listTableView.dataArray = self.viewModel.dataArray;</div><div class="line">        [self.listTableView reloadData];</div><div class="line">        [self.listTableView endReload];</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="tableview里调用预加载"><a href="#tableview里调用预加载" class="headerlink" title="tableview里调用预加载"></a>tableview里调用预加载</h3><p>绘制cell代理里调用,根据你的需求是row or section</p>
+<figure class="highlight plain"><figcaption><span>(void)configureCell:(UITableViewCell *)cell</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">    forRowAtIndexPath:(NSIndexPath *)indexPath</div><div class="line">&#123;</div><div class="line">    JSGoodListModel *model = self.dataArray[indexPath.row];</div><div class="line">    cell.textLabel.text = model.title;</div><div class="line">    cell.detailTextLabel.text = [NSString stringWithFormat:@&quot;¥%@&quot;,model.price];</div><div class="line">    /**</div><div class="line">     *  根据当期index计算是否回调preloadblock</div><div class="line">     */</div><div class="line">    [self preloadDataWithCurrentIndex:indexPath.row];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="配置tableview的上拉刷新和预加载"><a href="#配置tableview的上拉刷新和预加载" class="headerlink" title="配置tableview的上拉刷新和预加载:"></a>配置tableview的上拉刷新和预加载:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">- (JSListTableView *)listTableView&#123;</div><div class="line">    </div><div class="line">    if (!_listTableView) &#123;</div><div class="line">        _listTableView = [[JSListTableView alloc] initWithFrame:self.view.bounds</div><div class="line">                                                          style:UITableViewStyleGrouped];</div><div class="line">        [self.view addSubview:_listTableView];</div><div class="line">        </div><div class="line">        kWeakSelf(self)</div><div class="line">        /**</div><div class="line">         *  刷新</div><div class="line">         */</div><div class="line">        [_listTableView headerReloadBlock:^&#123;</div><div class="line">            kStrongSelf(self)</div><div class="line">            [self requestGoodListIsReload:YES];</div><div class="line">        &#125;];</div><div class="line">        /**</div><div class="line">         *  预加载</div><div class="line">         */</div><div class="line">        _listTableView.js_preloadBlock = ^&#123;</div><div class="line">            kStrongSelf(self)</div><div class="line">            [self requestGoodListIsReload:NO];</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">    return _listTableView;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此,流程就done了</p>
+<h1 id="内部方法实现步骤"><a href="#内部方法实现步骤" class="headerlink" title="内部方法实现步骤"></a>内部方法实现步骤</h1><h2 id="NSObject-LoadMoreService-m"><a href="#NSObject-LoadMoreService-m" class="headerlink" title="NSObject+LoadMoreService.m"></a>NSObject+LoadMoreService.m</h2><p>先用runtime associate property</p>
+<figure class="highlight plain"><figcaption><span>(BOOL)isNoMoreData&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">    return [objc_getAssociatedObject(self, &amp;key_isNoMoreData) boolValue];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setIsNoMoreData:(BOOL)isNoMoreData&#123;</div><div class="line">    objc_setAssociatedObject(self, &amp;key_isNoMoreData, @(isNoMoreData), OBJC_ASSOCIATION_ASSIGN);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (BOOL)isRequesting&#123;</div><div class="line">    return [objc_getAssociatedObject(self, &amp;key_isRequesting) boolValue];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setIsRequesting:(BOOL)isRequesting&#123;</div><div class="line">    objc_setAssociatedObject(self, &amp;key_isRequesting, @(isRequesting), OBJC_ASSOCIATION_ASSIGN);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSInteger)currentPage&#123;</div><div class="line">    return [objc_getAssociatedObject(self, &amp;key_currentPage) integerValue];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setCurrentPage:(NSInteger)currentPage&#123;</div><div class="line">    objc_setAssociatedObject(self, &amp;key_currentPage, @(currentPage), OBJC_ASSOCIATION_ASSIGN);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSMutableArray *)dataArray&#123;</div><div class="line">    return objc_getAssociatedObject(self, &amp;key_dataArray);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setDataArray:(NSMutableArray *)dataArray&#123;</div><div class="line">    objc_setAssociatedObject(self, &amp;key_dataArray, dataArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSMutableArray *)appendingIndexpaths&#123;</div><div class="line">    return objc_getAssociatedObject(self, &amp;key_appendingIndexpaths);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setAppendingIndexpaths:(NSMutableArray *)appendingIndexpaths&#123;</div><div class="line">    objc_setAssociatedObject(self, &amp;key_appendingIndexpaths, appendingIndexpaths, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (id)orginResponseObject&#123;</div><div class="line">    return objc_getAssociatedObject(self, &amp;key_orginResponseObject);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setOrginResponseObject:(id)orginResponseObject&#123;</div><div class="line">    objc_setAssociatedObject(self, &amp;key_orginResponseObject, orginResponseObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>分页请求的base Method,<br>需要你配置的地方都有warning标识着:</p>
+<figure class="highlight plain"><figcaption><span>(RACSignal *)js_baseSingleRequestWithURL:(NSString *)baseURL</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">                               para:(NSMutableDictionary *)para</div><div class="line">                           isReload:(BOOL)isReload&#123;</div><div class="line">    </div><div class="line">    RACReplaySubject *subject = [RACReplaySubject subject];</div><div class="line"></div><div class="line">    if (![self isSatisfyLoadMoreRequest]&amp;&amp;!isReload) &#123;</div><div class="line">        return subject;</div><div class="line">    &#125;</div><div class="line">    if (!para) &#123;</div><div class="line">        para = [NSMutableDictionary dictionary];</div><div class="line">    &#125;</div><div class="line">    if (isReload) &#123;</div><div class="line">        self.currentPage = 0;</div><div class="line">#warning 此处可以添加统一的HUD</div><div class="line">        //...</div><div class="line">    &#125;</div><div class="line">    self.currentPage++;</div><div class="line">#warning 分页的key按需修改</div><div class="line">    para[@&quot;page&quot;] = @(self.currentPage);</div><div class="line">    para[@&quot;per_page&quot;] = @(PerPageMaxCount);</div><div class="line">    </div><div class="line">    self.isRequesting = YES;</div><div class="line">    </div><div class="line">    [[JSRequestTools js_getURL:baseURL para:para] subscribeNext:^(id  _Nullable x) &#123;</div><div class="line">        self.isRequesting = NO;</div><div class="line">        if (isReload) &#123;</div><div class="line">#warning 消失HUD</div><div class="line">            //...</div><div class="line">        &#125;</div><div class="line">        [subject sendNext:x];</div><div class="line">        [subject sendCompleted];</div><div class="line">    &#125; error:^(NSError * _Nullable error) &#123;</div><div class="line">        self.isRequesting = NO;</div><div class="line">        if (self.currentPage&gt;0) &#123;</div><div class="line">            self.currentPage--;</div><div class="line">        &#125;</div><div class="line">        [subject sendError:error];</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    return subject;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此方法统一处理一些操作,比如:刷新remove,转model数组,记录是否加载完,记录当前请求的indexpath数组(为了是能调用insertRowsAtIndexPath:或者是insertSections:,而不用reloadData)</p>
+<figure class="highlight plain"><figcaption><span>(RACSignal *)js_singalForSingleRequestWithURL:(NSString *)baseURL</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">                                           para:(NSMutableDictionary *)para</div><div class="line">                                     keyOfArray:(NSString *)keyOfArray</div><div class="line">                          classNameOfModelArray:(NSString *)classNameOfModelArray</div><div class="line">                                       isReload:(BOOL)isReload&#123;</div><div class="line"></div><div class="line">    RACReplaySubject *subject = [RACReplaySubject subject];</div><div class="line">    </div><div class="line">    [[self js_baseSingleRequestWithURL:baseURL</div><div class="line">                                 para:para</div><div class="line">                             isReload:isReload] subscribeNext:^(id  _Nullable x) &#123;</div><div class="line">        </div><div class="line">        NSAssert(classNameOfModelArray, @&quot;请建个对应的model,为了能创建数组模型!&quot;);</div><div class="line">        </div><div class="line">        self.orginResponseObject = x;</div><div class="line">        </div><div class="line">        if (!self.dataArray) &#123;</div><div class="line">            self.dataArray = @[].mutableCopy;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        if (isReload) &#123;</div><div class="line">            [self.dataArray removeAllObjects];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        NSArray *separateKeyArray = [keyOfArray componentsSeparatedByString:@&quot;/&quot;];</div><div class="line">        for (NSString *sepret_key in separateKeyArray) &#123;</div><div class="line">            x = x[sepret_key];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        NSArray *dataArray = [NSArray yy_modelArrayWithClass:NSClassFromString(classNameOfModelArray) json:x];</div><div class="line">        NSInteger from_index = self.dataArray.count;</div><div class="line">        NSInteger data_count = dataArray.count;</div><div class="line">        self.appendingIndexpaths = [self getAppendingIndexpathsFromIndex:from_index</div><div class="line">                                                          appendingCount:data_count</div><div class="line">                                                               inSection:0</div><div class="line">                                                                isForRow:YES];</div><div class="line">        [subject sendNext:dataArray];</div><div class="line">        </div><div class="line">        if (dataArray.count==0) &#123;</div><div class="line">            self.isNoMoreData = YES;</div><div class="line">        &#125; else &#123;</div><div class="line">            self.isNoMoreData = NO;</div><div class="line">            [self.dataArray addObjectsFromArray:dataArray];</div><div class="line">        &#125;</div><div class="line">        [subject sendCompleted];</div><div class="line">        </div><div class="line">    &#125; error:^(NSError * _Nullable error) &#123;</div><div class="line">        [subject sendError:error];</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    return subject;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>判断是否满足预加载的条件:</p>
+<figure class="highlight plain"><figcaption><span>(BOOL)isSatisfyLoadMoreRequest&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    return (!self.isNoMoreData&amp;&amp;!self.isRequesting);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>获取当前分页的所得indexpaths数组:</p>
+<figure class="highlight plain"><figcaption><span>(NSMutableArray *)getAppendingIndexpathsFromIndex:(NSInteger)from_index</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">                                     appendingCount:(NSInteger)appendingCount</div><div class="line">                                          inSection:(NSInteger)inSection</div><div class="line">                                           isForRow:(BOOL)isForRow&#123;</div><div class="line">    NSMutableArray *indexps = [NSMutableArray array];</div><div class="line">    for (NSInteger i = 0; i &lt; appendingCount; i++) &#123;</div><div class="line">        if (isForRow) &#123;</div><div class="line">            NSIndexPath *indexp = [NSIndexPath indexPathForRow:from_index+i inSection:inSection];</div><div class="line">            [indexps addObject:indexp];</div><div class="line">        &#125; else &#123;</div><div class="line">            NSIndexPath *indexp = [NSIndexPath indexPathForRow:0 inSection:from_index+i];</div><div class="line">            [indexps addObject:indexp];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return indexps;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="UITableView-Preload-m"><a href="#UITableView-Preload-m" class="headerlink" title="UITableView+Preload.m"></a>UITableView+Preload.m</h2><p>给tableview扩展些属性以及方法</p>
+<p>统一给tableview设置头部刷新</p>
+<figure class="highlight plain"><figcaption><span>(void)headerReloadBlock:(ReloadBlock)js_reloadBlock&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">    </div><div class="line">    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:js_reloadBlock];</div><div class="line">    self.mj_header = header;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结束刷新</p>
+<figure class="highlight plain"><figcaption><span>(void)endReload&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">    </div><div class="line">    [self.mj_header endRefreshing];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>判断当前index是否可以出发预加载</p>
+<figure class="highlight plain"><figcaption><span>(void)preloadDataWithCurrentIndex:(NSInteger)currentIndex&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">    NSInteger totalCount = self.dataArray.count;</div><div class="line">    if ([self isSatisfyPreloadDataWithTotalCount:totalCount currentIndex:currentIndex]&amp;&amp;self.js_preloadBlock) &#123;</div><div class="line">        self.js_preloadBlock();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>是否达到预加载的条件</p>
+<figure class="highlight plain"><figcaption><span>(BOOL)isSatisfyPreloadDataWithTotalCount:(NSInteger)totalCount currentIndex:(NSInteger)currentIndex&#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">    return  ((currentIndex == totalCount - PreloadMinCount) &amp;&amp; (currentIndex &gt;= PreloadMinCount));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="结"><a href="#结" class="headerlink" title="结"></a>结</h1><p>其实思路很简单,runtime扩展所需要的属性和方法,然后有机的结合调用,如果你真的看懂了,其实真的很方便,当然如果你有更好的建议都可以github issue我,共同学习共同进步~</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin.png" alt="乔同X WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/zhifubao.png" alt="乔同X Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RN/" rel="tag">#RN</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/01/20170801/" rel="next" title="关于RN的flexbox tips">
+                <i class="fa fa-chevron-left"></i> 关于RN的flexbox tips
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg5Mi82NDU3">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/me.png"
+               alt="乔同X" />
+          <p class="site-author-name" itemprop="name">乔同X</p>
+          <p class="site-description motion-element" itemprop="description">Do What I Can Do!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Josin22" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5559102394" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://iamyuhang.com/" title="冀宇航" target="_blank">冀宇航</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.guiyongdong.com/" title="贵永冬" target="_blank">贵永冬</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大概就是这么丝滑"><span class="nav-number">1.</span> <span class="nav-text">大概就是这么丝滑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用法讲解"><span class="nav-number">2.</span> <span class="nav-text">用法讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性预览"><span class="nav-number">2.1.</span> <span class="nav-text">属性预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何调用"><span class="nav-number">2.2.</span> <span class="nav-text">如何调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建一个viewModel类"><span class="nav-number">2.2.1.</span> <span class="nav-text">建一个viewModel类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VC调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">VC调用:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tableview里调用预加载"><span class="nav-number">2.2.3.</span> <span class="nav-text">tableview里调用预加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置tableview的上拉刷新和预加载"><span class="nav-number">2.2.4.</span> <span class="nav-text">配置tableview的上拉刷新和预加载:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部方法实现步骤"><span class="nav-number">3.</span> <span class="nav-text">内部方法实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NSObject-LoadMoreService-m"><span class="nav-number">3.1.</span> <span class="nav-text">NSObject+LoadMoreService.m</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UITableView-Preload-m"><span class="nav-number">3.2.</span> <span class="nav-text">UITableView+Preload.m</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结"><span class="nav-number">4.</span> <span class="nav-text">结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">乔同X</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
